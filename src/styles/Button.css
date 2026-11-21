@@ -1,0 +1,114 @@
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 2.875rem; /* target sentuh ≥ 44px */
+  padding: 0.7rem 1.5rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn--dark {
+  background: var(--navy);
+  color: var(--white);
+}
+.btn--dark:hover {
+  background: var(--navy-2);
+  color: var(--white);
+}
+
+.btn--light {
+  background: var(--white);
+  color: var(--navy);
+}
+.btn--light:hover {
+  background: var(--white-soft);
+  color: var(--navy);
+}
+
+.btn--ghost-light {
+  background: transparent;
+  border-color: var(--white-a80);
+  color: var(--white);
+}
+.btn--ghost-light:hover {
+  background: var(--white-a15);
+  color: var(--white);
+}
+
+.btn--ghost-dark {
+  background: var(--white);
+  border-color: var(--navy);
+  color: var(--navy);
+}
+.btn--ghost-dark:hover {
+  background: var(--white-soft);
+  color: var(--navy-2);
+}
+
+/* Tindakan merusak (hapus). Memakai warna status error. */
+.btn--danger {
+  background: var(--error);
+  color: var(--white);
+}
+.btn--danger:hover {
+  color: var(--white);
+  text-decoration: underline;
+}
+
+.btn--kecil {
+  min-height: 2.5rem;
+  padding: 0.45rem 0.9rem;
+  font-size: var(--fs-small);
+}
+
+/* Animasi 5 — hover: tombol terangkat sedikit. */
+@media (hover: hover) {
+  .btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+  }
+}
+
+/* Animasi 3 — CTA berdenyut halus. Hanya transform + opacity pada ::after. */
+@media (prefers-reduced-motion: no-preference) {
+  .btn {
+    transition: transform 0.25s var(--ease-out);
+  }
+  .btn--pulse::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    border: 2px solid var(--navy-a40);
+    pointer-events: none;
+    opacity: 0;
+    animation: cta-pulse 2.6s var(--ease-out) infinite;
+  }
+  .btn--light.btn--pulse::after {
+    border-color: var(--white-a80);
+  }
+}
+
+@keyframes cta-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(1.12, 1.4);
+    opacity: 0;
+  }
+}

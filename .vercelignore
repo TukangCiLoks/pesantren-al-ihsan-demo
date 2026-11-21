@@ -1,0 +1,11 @@
+# File yang TIDAK ikut di-upload saat `vercel deploy` dari komputer lokal.
+# Vercel membangun ulang proyek di servernya, jadi node_modules & dist tidak perlu.
+node_modules
+dist
+.git
+.claude
+
+# Kredensial lokal: nilai env diatur di Vercel › Settings › Environment Variables
+.env
+.env.local
+.env.*.local

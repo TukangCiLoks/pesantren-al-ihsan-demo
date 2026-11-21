@@ -1,0 +1,105 @@
+/* Thumbnail dengan zoom halus saat hover (animasi 5). Dipakai juga oleh Galeri. */
+.thumb {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 400 / 260;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--navy);
+}
+.thumb__img {
+  width: 100%;
+  height: 100%;
+}
+@media (hover: hover) {
+  .card--interaktif:hover .thumb__img,
+  .card--interaktif:focus-within .thumb__img,
+  .thumb--hover:hover .thumb__img {
+    transform: scale(1.05);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .thumb__img {
+    transition: transform 0.6s var(--ease-out);
+  }
+}
+
+/* Label untuk berita contoh (saat Supabase belum terhubung). */
+.lencana-contoh {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--navy);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  box-shadow: var(--shadow-sm);
+}
+
+.berita-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.berita-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--space-5);
+}
+
+.berita-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-3);
+  font-family: var(--font-sub);
+  font-size: var(--fs-small);
+  color: var(--slate-2);
+}
+.berita-card__kategori {
+  font-weight: 700;
+  color: var(--navy-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.berita-card__judul {
+  margin-bottom: var(--space-3);
+}
+
+.berita-card__link {
+  color: var(--navy);
+  text-decoration: none;
+}
+.berita-card__link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: var(--radius);
+}
+.berita-card__link:hover {
+  color: var(--navy-2);
+}
+/* Fokus keyboard digambar pada seluruh kartu. */
+.berita-card__link:focus-visible {
+  outline: none;
+}
+.berita-card__link:focus-visible::before {
+  outline: 3px solid var(--navy-2);
+  outline-offset: 3px;
+}
+
+.berita-card__ringkasan {
+  margin-bottom: var(--space-4);
+}
+
+.berita-card__lanjut {
+  margin-top: auto;
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--navy-2);
+}

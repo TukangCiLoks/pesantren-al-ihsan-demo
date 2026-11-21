@@ -1,0 +1,58 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.field__label {
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.field__hint {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--slate-2); /* 14px di atas putih: 4,76:1 */
+}
+
+/* Garis tepi --slate-2 agar batas isian kontras ≥ 3:1 (WCAG 1.4.11);
+   --slate-line terlalu pucat untuk kontrol formulir. */
+.field__control {
+  width: 100%;
+  min-height: 2.875rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--slate-2);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--navy);
+  font-family: var(--font-body);
+  font-size: 1rem; /* ≥16px: iOS tidak melakukan zoom otomatis */
+  line-height: 1.5;
+}
+.field__control::placeholder {
+  color: var(--slate-2);
+}
+.field__control:focus-visible {
+  outline: 3px solid var(--navy-2);
+  outline-offset: 1px;
+  border-color: var(--navy-2);
+}
+textarea.field__control {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.field--error .field__control {
+  border: 2px solid var(--error);
+}
+
+.field__error {
+  margin: 0;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--error);
+}
+.field__error::before {
+  content: '⚠ ';
+}

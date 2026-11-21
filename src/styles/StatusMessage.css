@@ -1,0 +1,19 @@
+.status {
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--slate-line);
+  border-left-width: 4px;
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--slate);
+}
+.status--info {
+  border-left-color: var(--navy-2);
+}
+.status--error {
+  border-left-color: var(--error);
+  color: var(--error);
+}
+.status--success {
+  border-left-color: var(--success);
+  color: var(--success);
+}

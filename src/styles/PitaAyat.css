@@ -1,0 +1,64 @@
+.pita-ayat {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: var(--space-8);
+  background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+  color: var(--white);
+  text-align: center;
+}
+
+.pita-ayat__pola {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.pita-ayat__isi {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+.pita-ayat__isi blockquote {
+  margin: 0;
+}
+
+.pita-ayat__ornamen {
+  margin: 0 auto var(--space-5);
+  color: var(--white);
+}
+
+.pita-ayat__arab {
+  font-size: clamp(1.75rem, 1.3rem + 2.2vw, 2.75rem);
+  line-height: 2.1;
+  margin-bottom: var(--space-5);
+  color: var(--white);
+}
+
+.pita-ayat__terjemahan {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--white);
+  margin-bottom: var(--space-5);
+}
+
+.pita-ayat__sumber {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.pita-ayat__sumber::before,
+.pita-ayat__sumber::after {
+  content: '';
+  width: 2rem;
+  height: 1px;
+  background: var(--white-a80);
+}

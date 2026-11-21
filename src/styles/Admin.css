@@ -1,0 +1,313 @@
+/* ── Kerangka admin ─────────────────────────────────────────────────── */
+.admin-header {
+  background: var(--navy);
+  color: var(--white);
+}
+.admin-header__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+  min-height: var(--header-h);
+  padding-block: var(--space-2);
+}
+.admin-header__label {
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-left: var(--space-4);
+  border-left: 1px solid var(--white-a15);
+}
+.admin-header__kembali {
+  margin-left: auto;
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--white);
+}
+.admin-header__kembali:hover {
+  color: var(--white);
+}
+
+.admin-main {
+  min-height: calc(100vh - var(--header-h));
+  padding-block: var(--space-7);
+  background: var(--white-soft);
+}
+
+.admin-kartu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: clamp(1.25rem, 0.8rem + 2vw, 2rem);
+  background: var(--white);
+  border: 1px solid var(--slate-line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.admin-kartu h1,
+.admin-kartu h3,
+.admin-kartu p {
+  margin: 0;
+}
+.admin-kartu .btn {
+  align-self: flex-start;
+}
+
+/* ── Login ─────────────────────────────────────────────────────────── */
+.admin-login {
+  max-width: 28rem;
+  margin-inline: auto;
+}
+.admin-login__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.admin-login__form .btn {
+  align-self: stretch;
+}
+
+/* ── Dashboard & tab ───────────────────────────────────────────────── */
+.dashboard__kepala {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+.dashboard__kepala h1 {
+  margin-bottom: var(--space-2);
+}
+.dashboard__akun {
+  margin: 0;
+  font-size: var(--fs-small);
+  overflow-wrap: anywhere;
+}
+
+.tabs {
+  display: flex;
+  gap: var(--space-2);
+  border-bottom: 1px solid var(--slate-line);
+}
+.tabs__tab {
+  min-height: 2.875rem;
+  padding: var(--space-3) var(--space-5);
+  border: 0;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  background: none;
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--slate);
+  cursor: pointer;
+}
+.tabs__tab:hover {
+  color: var(--navy-2);
+}
+.tabs__tab[aria-selected='true'] {
+  color: var(--navy);
+  border-bottom-color: var(--navy);
+}
+.tabs__panel {
+  padding-top: var(--space-6);
+}
+
+.admin-panel__kepala {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+.admin-panel__kepala h2 {
+  margin: 0;
+  font-size: var(--fs-h3);
+}
+.admin-panel__alat {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+.admin-filter__label {
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  color: var(--navy);
+}
+.admin-filter {
+  width: auto;
+  min-height: 2.5rem;
+  padding-block: 0.4rem;
+}
+
+.tabs__panel section > [aria-live] > .status,
+.tabs__panel section > .status {
+  margin-bottom: var(--space-4);
+}
+
+.admin-jumlah {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-sub);
+  font-size: var(--fs-small);
+  color: var(--slate);
+}
+
+/* ── Tabel ─────────────────────────────────────────────────────────── */
+.tabel-wrap {
+  /* position: relative wajib: elemen .visually-hidden (position: absolute) di dalam
+     tabel kalau tidak akan "lolos" dari wadah gulir dan melebarkan seluruh halaman. */
+  position: relative;
+  overflow-x: auto;
+  background: var(--white);
+  border: 1px solid var(--slate-line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.tabel {
+  width: 100%;
+  min-width: 52rem;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+.tabel th,
+.tabel td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--slate-line);
+}
+.tabel th {
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  color: var(--navy);
+  background: var(--white-soft);
+  white-space: nowrap;
+}
+.tabel tbody tr:last-child td {
+  border-bottom: 0;
+}
+.tabel strong {
+  color: var(--navy);
+  font-weight: 600;
+}
+.tabel__sub {
+  display: block;
+  font-size: var(--fs-small);
+  color: var(--slate);
+}
+.tabel__nowrap {
+  white-space: nowrap;
+}
+.tabel__status {
+  width: auto;
+  min-height: 2.5rem;
+  padding-block: 0.35rem;
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: var(--fs-small);
+}
+.tabel__status--diterima {
+  border-color: var(--success);
+  color: var(--success);
+}
+.tabel__status--ditolak {
+  border-color: var(--error);
+  color: var(--error);
+}
+.tabel__aksi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.lencana {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  white-space: nowrap;
+}
+.lencana--terbit {
+  background: var(--navy);
+  color: var(--white);
+}
+.lencana--draf {
+  border: 1px dashed var(--slate-2);
+  color: var(--slate);
+}
+
+/* ── Formulir berita ───────────────────────────────────────────────── */
+.berita-form {
+  margin-bottom: var(--space-6);
+}
+.berita-form__grup {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.berita-form__grid {
+  display: grid;
+  gap: var(--space-5);
+}
+.berita-form__cek {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--navy);
+  cursor: pointer;
+}
+.berita-form__cek input {
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: var(--navy);
+}
+.berita-form__aksi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .berita-form__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .berita-form__grid .span-2 {
+    grid-column: span 2;
+  }
+}
+
+/* ── Dialog konfirmasi ─────────────────────────────────────────────── */
+.dialog {
+  width: min(28rem, calc(100vw - 2rem));
+  padding: var(--space-6);
+  border: 0;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  color: var(--slate);
+}
+.dialog::backdrop {
+  background: var(--navy-a40);
+}
+.dialog h2 {
+  font-size: var(--fs-h3);
+  margin-bottom: var(--space-3);
+}
+.dialog__aksi {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}

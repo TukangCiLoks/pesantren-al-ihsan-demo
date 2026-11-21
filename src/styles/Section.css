@@ -1,0 +1,30 @@
+.section {
+  padding-block: var(--space-8);
+  scroll-margin-top: var(--header-h);
+  /* Elemen reveal dari kiri/kanan mulai di luar layar; jangan sampai halaman
+     bisa digeser ke samping. `clip` (bukan hidden) tidak membuat wadah gulir. */
+  overflow-x: clip;
+}
+.section--white {
+  background: var(--white);
+}
+.section--soft {
+  background: var(--white-soft);
+}
+.section--navy {
+  background: var(--navy);
+  color: var(--white);
+}
+.section--navy h2,
+.section--navy .eyebrow {
+  color: var(--white);
+}
+
+.section__header {
+  max-width: 40rem;
+  margin-bottom: var(--space-7);
+}
+.section__intro {
+  font-size: var(--fs-lead);
+  margin: 0;
+}

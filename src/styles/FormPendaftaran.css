@@ -1,0 +1,99 @@
+.form-daftar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 52rem;
+  padding: clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
+  background: var(--white);
+  border: 1px solid var(--slate-line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-daftar__demo {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-left: 4px solid var(--navy-2);
+  border-radius: 0 8px 8px 0;
+  background: var(--white-soft);
+  font-family: var(--font-sub);
+  color: var(--navy);
+}
+
+.form-daftar__wajib {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--slate);
+}
+
+.form-daftar__grup {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0; /* cegah fieldset melebar di grid/flex */
+}
+.form-daftar__grup legend {
+  padding: 0;
+  margin-bottom: var(--space-4);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  color: var(--navy);
+}
+
+.form-daftar__grid {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.form-daftar__aksi {
+  display: flex;
+  justify-content: flex-start;
+}
+.form-daftar__aksi .btn {
+  min-width: 12rem;
+}
+
+/* Keadaan sukses */
+.form-daftar--sukses {
+  border-top: 4px solid var(--success);
+}
+.form-daftar--sukses h3 {
+  margin: 0;
+}
+.form-daftar--sukses p {
+  margin: 0;
+}
+.form-daftar--sukses .btn {
+  align-self: flex-start;
+}
+.form-daftar__nomor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
+  border: 1px dashed var(--slate-2);
+  border-radius: 8px;
+  background: var(--white-soft);
+  align-self: flex-start;
+}
+.form-daftar__nomor-label {
+  font-family: var(--font-sub);
+  font-size: var(--fs-small);
+  color: var(--slate);
+}
+.form-daftar__nomor strong {
+  font-family: var(--font-sub);
+  font-size: clamp(1.4rem, 1.2rem + 1vw, 1.9rem);
+  letter-spacing: 0.04em;
+  color: var(--navy);
+}
+
+@media (min-width: 768px) {
+  .form-daftar__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .form-daftar__grid .span-2 {
+    grid-column: span 2;
+  }
+}

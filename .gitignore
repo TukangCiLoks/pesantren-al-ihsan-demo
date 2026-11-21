@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.vercel/
+
+# Kredensial lokal — jangan pernah di-commit
+.env
+.env.local
+.env.*.local
+
+*.log
+.DS_Store
+Thumbs.db
+
+.vercel
+.env*
+# Template tanpa nilai tetap di-commit
+!.env.example

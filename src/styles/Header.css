@@ -1,0 +1,116 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--navy);
+  color: var(--white);
+  box-shadow: 0 1px 0 var(--white-a15);
+}
+
+.header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-h);
+  gap: var(--space-4);
+}
+
+.header__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.875rem;
+  height: 2.875rem;
+  padding: 0;
+  border: 1px solid var(--white-a15);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+}
+
+/* Mobile: menu turun di bawah header, tampil hanya bila dibuka. */
+.header__nav {
+  display: none;
+  position: absolute;
+  inset: var(--header-h) 0 auto 0;
+  padding: var(--space-4) var(--gutter) var(--space-6);
+  background: var(--navy);
+  border-top: 1px solid var(--white-a15);
+  box-shadow: var(--shadow-lg);
+}
+.header__nav.is-open {
+  display: block;
+}
+
+.header__list {
+  list-style: none;
+  margin: 0 0 var(--space-5);
+  padding: 0;
+}
+
+.header__link {
+  position: relative;
+  display: inline-block;
+  padding: var(--space-3) 0;
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--white);
+  text-decoration: none;
+}
+.header__link:hover {
+  color: var(--white);
+}
+/* Animasi 5 — hover menu: garis bawah tumbuh dari tengah (scaleX). */
+.header__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.35rem;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+}
+.header__link:hover::after,
+.header__link:focus-visible::after {
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .header__link::after {
+    transition: transform 0.3s var(--ease-out);
+  }
+}
+
+.header__cta {
+  width: 100%;
+}
+
+@media (min-width: 960px) {
+  .header__toggle {
+    display: none;
+  }
+  .header__nav,
+  .header__nav.is-open {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    position: static;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: none;
+  }
+  .header__list {
+    display: flex;
+    gap: var(--space-5);
+    margin: 0;
+  }
+  .header__link {
+    padding: var(--space-2) 0;
+  }
+  .header__cta {
+    width: auto;
+  }
+}

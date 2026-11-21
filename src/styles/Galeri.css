@@ -1,0 +1,31 @@
+.galeri__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.galeri__item {
+  margin: 0;
+}
+
+.galeri__thumb {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.galeri__item figcaption {
+  margin-top: var(--space-2);
+  font-family: var(--font-sub);
+  font-size: var(--fs-small);
+  color: var(--slate);
+}
+
+@media (min-width: 768px) {
+  .galeri__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+}
