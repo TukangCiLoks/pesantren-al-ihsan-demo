@@ -3,6 +3,8 @@ import Section from './Section.jsx';
 import Reveal from './Reveal.jsx';
 import BeritaCard from './BeritaCard.jsx';
 import StatusMessage from './StatusMessage.jsx';
+import Button from './Button.jsx';
+import '../styles/Galeri.css';
 import { ambilBeritaTerbaru } from '../lib/berita.js';
 import '../styles/BeritaTerbaru.css';
 
@@ -57,6 +59,11 @@ export default function BeritaTerbaru() {
           ))}
         </ul>
       )}
+      <div className="galeri__lainnya">
+        <Button to="/informasi/berita" variant="ghost-dark">
+          Lihat semua berita
+        </Button>
+      </div>
     </Section>
   );
 }

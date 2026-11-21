@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Logo from './Logo.jsx';
 import Button from './Button.jsx';
-import { MENU } from '../data/konten.js';
+import NavUtama from './NavUtama.jsx';
+import ThemeToggle from './ThemeToggle.jsx';
 import '../styles/Header.css';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
-  // Tutup menu setiap kali berpindah tujuan.
+  // Tutup panel menu setiap kali berpindah tujuan.
   useEffect(() => setOpen(false), [location.key]);
 
-  // Esc menutup menu mobile.
+  // Esc menutup panel menu ponsel (submenu yang terbuka ditutup lebih dulu oleh NavUtama).
   useEffect(() => {
     if (!open) return undefined;
     const onKey = (e) => e.key === 'Escape' && setOpen(false);
@@ -43,19 +44,14 @@ export default function Header() {
         </button>
 
         <nav id="menu-utama" className={`header__nav${open ? ' is-open' : ''}`} aria-label="Menu utama">
-          <ul className="header__list">
-            {MENU.map((item) => (
-              <li key={item.to}>
-                <Link to={item.to} className="header__link">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <Button to="/#daftar" variant="light" className="header__cta">
-            Pendaftaran Online
+          <NavUtama />
+          <Button to="/ppdb/formulir" variant="light" className="header__cta">
+            Daftar Online
           </Button>
         </nav>
+
+        {/* Setelah menu di DOM, jadi urutan Tab mengikuti urutan visual di semua lebar. */}
+        <ThemeToggle />
       </div>
     </header>
   );

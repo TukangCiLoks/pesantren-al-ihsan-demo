@@ -1,58 +1,65 @@
 import { Link } from 'react-router-dom';
 import Logo from './Logo.jsx';
-import { KONTAK, MENU } from '../data/konten.js';
+import SosialMedia from './SosialMedia.jsx';
+import { KONTAK, NAMA } from '../data/konten.js';
+import { MENU } from '../data/menu.js';
 import '../styles/Footer.css';
+
+// Kolom peta situs = menu level atas yang punya submenu (Profil, Pendidikan, Informasi, PPDB).
+const KOLOM = MENU.filter((m) => m.anak);
 
 export default function Footer() {
   return (
-    <footer id="kontak" className="footer on-dark">
+    <footer className="footer on-dark">
       <div className="container footer__grid">
-        <div>
+        <div className="footer__merek">
           <Logo />
           <p className="footer__note">
-            Situs demo portofolio. Pesantren Al-Ihsan adalah lembaga fiktif; seluruh nama, alamat, dan data di
-            situs ini adalah contoh.
+            Situs demo portofolio. {NAMA} adalah lembaga fiktif; seluruh nama, alamat, dan data di situs ini
+            adalah contoh.
           </p>
-        </div>
-
-        <div>
-          <h2 className="footer__title">Alamat</h2>
-          <address className="footer__address">
+          <address className="footer__alamat">
             {KONTAK.alamat.map((baris) => (
               <span key={baris}>{baris}</span>
             ))}
+            <a href={`tel:${KONTAK.telepon.replace(/\D/g, '')}`}>{KONTAK.telepon}</a>
+            <a href={`mailto:${KONTAK.email}`}>{KONTAK.email}</a>
           </address>
         </div>
 
-        <div>
-          <h2 className="footer__title">Kontak</h2>
-          <ul className="footer__list">
-            <li>
-              Telepon: <a href={`tel:${KONTAK.telepon.replace(/\D/g, '')}`}>{KONTAK.telepon}</a>
-            </li>
-            <li>
-              Email: <a href={`mailto:${KONTAK.email}`}>{KONTAK.email}</a>
-            </li>
-          </ul>
-        </div>
-
-        <nav aria-label="Tautan footer">
-          <h2 className="footer__title">Tautan</h2>
-          <ul className="footer__list">
-            {MENU.map((m) => (
-              <li key={m.to}>
-                <Link to={m.to}>{m.label}</Link>
-              </li>
-            ))}
-            <li>
-              <Link to="/admin/login">Admin</Link>
-            </li>
-          </ul>
+        <nav className="footer__peta" aria-label="Peta situs">
+          {KOLOM.map((kolom) => (
+            <div key={kolom.to}>
+              <h2 className="footer__title">
+                <Link to={kolom.to}>{kolom.label}</Link>
+              </h2>
+              <ul className="footer__list">
+                {kolom.anak.map((a) => (
+                  <li key={a.to}>
+                    <Link to={a.to}>{a.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </nav>
+
+        <div className="footer__ikuti">
+          <h2 className="footer__title">Ikuti Kami</h2>
+          <SosialMedia varian="label" judul={`Ikuti ${NAMA} di media sosial`} />
+        </div>
       </div>
 
       <div className="container footer__bottom">
-        <p>© {new Date().getFullYear()} Pesantren Al-Ihsan (Demo). Proyek portofolio.</p>
+        <p>© {new Date().getFullYear()} {NAMA} (Demo). Proyek portofolio.</p>
+        <ul className="footer__bawah-tautan">
+          <li>
+            <Link to="/kontak">Kontak</Link>
+          </li>
+          <li>
+            <Link to="/admin/login">Admin</Link>
+          </li>
+        </ul>
       </div>
     </footer>
   );

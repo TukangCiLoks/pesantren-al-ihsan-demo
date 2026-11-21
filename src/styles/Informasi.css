@@ -1,0 +1,301 @@
+/* ── Halaman Informasi: pencarian, filter, daftar, agenda, detail ──────── */
+
+/* Baris pencarian + filter kategori */
+.cari {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+.cari__isian {
+  flex: 1 1 16rem;
+}
+.cari .btn {
+  flex-shrink: 0;
+}
+
+.filter-kategori {
+  list-style: none;
+  margin: 0 0 var(--space-5);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.filter-kategori button {
+  min-height: 2.5rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--heading);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  cursor: pointer;
+}
+.filter-kategori button:hover {
+  background: var(--surface-alt);
+}
+.filter-kategori button[aria-pressed='true'] {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+}
+
+.hasil-info {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-sub);
+  font-size: var(--fs-small);
+  color: var(--text);
+}
+
+/* Daftar baris (pengumuman, agenda) */
+.daftar-info {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+}
+.item-info {
+  position: relative;
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--heading);
+  border-radius: var(--radius);
+}
+.item-info__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-sub);
+  font-size: var(--fs-small);
+  color: var(--text);
+}
+.item-info__lokasi {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+.item-info__judul {
+  margin: 0 0 var(--space-2);
+  font-size: var(--fs-h3);
+}
+.item-info__tautan {
+  color: var(--heading);
+  text-decoration: none;
+}
+/* Tautan melebar: seluruh baris bisa diklik */
+.item-info__tautan::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+}
+.item-info__tautan:hover {
+  text-decoration: underline;
+  color: var(--heading);
+}
+.item-info__tautan:focus-visible {
+  outline: none;
+}
+.item-info__tautan:focus-visible::before {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+.item-info__ringkasan {
+  margin: 0;
+}
+
+/* Agenda: blok tanggal di kiri */
+.item-agenda {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+.item-agenda .item-info__meta {
+  margin: 0;
+}
+.item-agenda__tanggal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--on-primary);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  line-height: 1.1;
+}
+.item-agenda__hari {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+}
+.item-agenda__bulan {
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+/* Agenda yang sudah lewat: blok tanggal bergaris, bukan penuh */
+.item-agenda--lewat .item-agenda__tanggal {
+  background: var(--surface-alt);
+  color: var(--heading);
+  border: 1px solid var(--border-strong);
+}
+.item-agenda--lewat {
+  border-left-color: var(--border-strong);
+}
+
+/* Detail */
+.detail__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0 0 var(--space-5);
+  font-family: var(--font-sub);
+  font-size: var(--fs-small);
+  color: var(--text);
+}
+.detail__acara {
+  display: grid;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+.detail__acara p {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--heading);
+}
+.detail__gambar {
+  overflow: hidden;
+  margin-bottom: var(--space-6);
+  border-radius: var(--radius);
+  aspect-ratio: 400 / 260;
+  border: 1px solid var(--border);
+}
+.detail__gambar svg {
+  width: 100%;
+  height: 100%;
+}
+.detail__isi p {
+  margin-bottom: var(--space-5);
+}
+.detail__kaki {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+
+/* Tombol bagikan */
+.bagikan {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+.bagikan__label {
+  margin-right: var(--space-1);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--heading);
+}
+.bagikan__tombol {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.5rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--heading);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  text-decoration: none;
+  cursor: pointer;
+}
+.bagikan__tombol:hover {
+  background: var(--surface-alt);
+  color: var(--heading);
+}
+.bagikan__status {
+  width: 100%;
+  margin: 0;
+  font-family: var(--font-sub);
+  font-size: var(--fs-small);
+  color: var(--text);
+}
+.detail__kembali {
+  margin-top: var(--space-6);
+  font-family: var(--font-sub);
+  font-weight: 700;
+}
+
+/* Unduhan: ikon | teks | tombol (ponsel: tombol turun ke bawah) */
+.unduhan {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+.unduhan__ikon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.unduhan .item-info__meta {
+  margin: var(--space-2) 0 0;
+}
+.unduhan__tombol {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+@media (min-width: 640px) {
+  .unduhan {
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+  }
+  .unduhan__tombol {
+    grid-column: auto;
+  }
+}
+
+/* Beranda: dua kolom info terkini */
+.info-terkini {
+  display: grid;
+  gap: var(--space-7);
+}
+.info-kolom__judul {
+  margin-bottom: var(--space-4);
+}
+.info-kolom__aksi {
+  margin-top: var(--space-5);
+}
+@media (min-width: 900px) {
+  .info-terkini {
+    grid-template-columns: 1fr 1fr;
+  }
+}

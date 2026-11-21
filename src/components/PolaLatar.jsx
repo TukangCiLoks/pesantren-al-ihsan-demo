@@ -12,7 +12,7 @@ export default function PolaLatar({ ukuran = 120, opasitas = 0.07, className = '
     <svg className={className} width="100%" height="100%" aria-hidden="true" focusable="false">
       <defs>
         <pattern id={id} width={s} height={s} patternUnits="userSpaceOnUse">
-          <g fill="none" stroke="#FFFFFF" strokeOpacity={opasitas} strokeWidth="1.5">
+          <g fill="none" style={{ stroke: 'var(--white)' }} strokeOpacity={opasitas} strokeWidth="1.5">
             <rect x={q * 1.15} y={q * 1.15} width={q * 1.7} height={q * 1.7} />
             <rect x={q * 1.15} y={q * 1.15} width={q * 1.7} height={q * 1.7} transform={`rotate(45 ${s / 2} ${s / 2})`} />
             <circle cx={s / 2} cy={s / 2} r={s / 12} />

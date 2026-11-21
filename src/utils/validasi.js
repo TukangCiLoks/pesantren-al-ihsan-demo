@@ -83,15 +83,32 @@ const ATURAN = {
 export const validasiField = (nama, nilai, hariIni = new Date()) => ATURAN[nama](nilai, hariIni);
 
 /** Validasi berita (panel admin). Batas sama dengan CHECK tabel berita. */
-export const URUTAN_BERITA = ['judul', 'kategori', 'ringkasan', 'isi'];
+export const URUTAN_BERITA = ['kategori', 'tanggal_acara', 'lokasi', 'judul', 'ringkasan', 'isi'];
 export function validasiBerita(v) {
   const errors = {};
+  if (v.jenis === 'agenda') {
+    if (!v.tanggal_acara || Number.isNaN(Date.parse(v.tanggal_acara))) errors.tanggal_acara = 'Tanggal dan jam acara wajib diisi untuk agenda.';
+    if ((v.lokasi ?? '').trim().length > 120) errors.lokasi = 'Lokasi maksimal 120 karakter.';
+  }
   const judul = panjang(v.judul, 5, 160, 'Judul');
   if (judul) errors.judul = judul;
   if (v.kategori.trim().length > 40) errors.kategori = 'Kategori maksimal 40 karakter.';
   if (v.ringkasan.trim().length > 300) errors.ringkasan = 'Ringkasan maksimal 300 karakter.';
   const isi = panjang(v.isi, 10, 20000, 'Isi berita');
   if (isi) errors.isi = isi;
+  return errors;
+}
+
+/** Validasi pengurus (panel admin). Batas sama dengan CHECK tabel pengurus. */
+export const URUTAN_PENGURUS = ['nama', 'jabatan', 'urutan'];
+export function validasiPengurus(v) {
+  const errors = {};
+  const nama = panjang(v.nama, 3, 100, 'Nama');
+  if (nama) errors.nama = nama;
+  const jabatan = panjang(v.jabatan, 2, 100, 'Jabatan');
+  if (jabatan) errors.jabatan = jabatan;
+  const n = Number(v.urutan);
+  if (v.urutan === '' || !Number.isInteger(n) || n < 0 || n > 999) errors.urutan = 'Urutan berupa angka bulat 0–999.';
   return errors;
 }
 

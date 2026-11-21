@@ -1,0 +1,30 @@
+.ekskul-kartu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+}
+.ekskul-kartu h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+.ekskul-kartu__ikon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.ekskul-kartu__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  margin: 0;
+  font-family: var(--font-sub);
+  font-size: var(--fs-small);
+  color: var(--text);
+}

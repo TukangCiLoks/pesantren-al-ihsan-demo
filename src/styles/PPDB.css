@@ -1,0 +1,187 @@
+/* ── Halaman PPDB & Kontak ───────────────────────────────────────────── */
+
+.ajakan-daftar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+}
+.ajakan-daftar__teks {
+  margin: 0;
+}
+.ajakan-daftar__aksi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+@media (min-width: 768px) {
+  .ajakan-daftar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+/* Tabel biaya: angka rata kanan, baris total tebal */
+.tabel-isi .angka {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.tabel-isi tfoot th,
+.tabel-isi tfoot td {
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--heading);
+  background: var(--surface-alt);
+  border-bottom: 0;
+}
+.catatan-daftar {
+  margin: var(--space-5) 0 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: var(--space-2);
+  max-width: 50rem;
+}
+
+/* FAQ: <details>/<summary> bawaan peramban — bisa dibuka keyboard, tanpa JavaScript. */
+.faq {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 50rem;
+}
+.faq__item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.faq__item[open] {
+  border-left: 4px solid var(--heading);
+}
+.faq__tanya {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--heading);
+  cursor: pointer;
+  list-style: none;
+}
+.faq__tanya::-webkit-details-marker {
+  display: none;
+}
+.faq__tanya svg {
+  flex-shrink: 0;
+}
+/* Panah berputar seketika saat dibuka (tanpa transisi — bukan bagian dari 6 animasi). */
+.faq__item[open] .faq__tanya svg {
+  transform: rotate(180deg);
+}
+.faq__jawab {
+  margin: 0;
+  padding: 0 var(--space-5) var(--space-5);
+}
+
+/* Kontak */
+.kontak-grid {
+  display: grid;
+  gap: var(--space-6);
+}
+@media (min-width: 900px) {
+  .kontak-grid {
+    grid-template-columns: 1fr 1.2fr;
+    align-items: start;
+  }
+}
+.kontak-daftar {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+}
+.kontak-daftar li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-3);
+  align-items: start;
+}
+.kontak-daftar__ikon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 8px;
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.kontak-daftar__label {
+  display: block;
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  color: var(--text);
+}
+.kontak-daftar__nilai {
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--heading);
+}
+.kontak-daftar__nilai a {
+  color: var(--heading);
+}
+
+.peta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+}
+.peta figcaption {
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-sub);
+  font-size: var(--fs-small);
+  color: var(--white);
+  border-top: 1px solid var(--white-a15);
+}
+
+/* Kartu media sosial */
+.kartu-sosmed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  height: 100%;
+  padding: var(--space-5);
+}
+.kartu-sosmed__ikon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--on-primary);
+  --ikon-sosmed-isi: var(--primary); /* segitiga "play" YouTube = warna latar lingkaran */
+}
+.kartu-sosmed h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+.kartu-sosmed p {
+  margin: 0;
+  font-family: var(--font-sub);
+  font-size: var(--fs-small);
+  color: var(--text);
+}
+.kartu-sosmed .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}

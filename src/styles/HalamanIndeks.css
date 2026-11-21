@@ -1,0 +1,64 @@
+.indeks__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-5);
+}
+@media (min-width: 640px) {
+  .indeks__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .indeks__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.indeks__kartu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-5);
+}
+.indeks__kartu p {
+  margin: 0;
+}
+.indeks__judul {
+  margin: 0;
+  font-size: var(--fs-h3);
+}
+/* Tautan "melebar" menutupi seluruh kartu agar mudah diklik. */
+.indeks__tautan {
+  color: var(--heading);
+  text-decoration: none;
+}
+.indeks__tautan::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: var(--radius);
+}
+.indeks__tautan:hover {
+  color: var(--accent);
+}
+.indeks__tautan:focus-visible {
+  outline: none;
+}
+.indeks__tautan:focus-visible::before {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+.indeks__sub {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+.indeks__lanjut {
+  margin-top: auto;
+  padding-top: var(--space-2);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--accent);
+}

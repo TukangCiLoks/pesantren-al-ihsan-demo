@@ -6,6 +6,7 @@ import ProfilSingkat from '../components/ProfilSingkat.jsx';
 import PitaAyat from '../components/PitaAyat.jsx';
 import BeritaTerbaru from '../components/BeritaTerbaru.jsx';
 import Galeri from '../components/Galeri.jsx';
+import InfoTerkini from '../components/InfoTerkini.jsx';
 import Pendaftaran from '../components/Pendaftaran.jsx';
 import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
 
@@ -33,6 +34,7 @@ export default function Beranda() {
       <ProfilSingkat />
       <PitaAyat />
       <BeritaTerbaru />
+      <InfoTerkini />
       <Galeri />
       <Pendaftaran />
     </>

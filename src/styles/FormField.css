@@ -7,13 +7,13 @@
 .field__label {
   font-family: var(--font-sub);
   font-weight: 700;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .field__hint {
   margin: 0;
   font-size: var(--fs-small);
-  color: var(--slate-2); /* 14px di atas putih: 4,76:1 */
+  color: var(--text-muted); /* 14px di atas putih: 4,76:1 */
 }
 
 /* Garis tepi --slate-2 agar batas isian kontras ≥ 3:1 (WCAG 1.4.11);
@@ -22,21 +22,21 @@
   width: 100%;
   min-height: 2.875rem;
   padding: 0.65rem 0.85rem;
-  border: 1px solid var(--slate-2);
+  border: 1px solid var(--border-strong);
   border-radius: 8px;
-  background: var(--white);
-  color: var(--navy);
+  background: var(--field-bg);
+  color: var(--heading);
   font-family: var(--font-body);
   font-size: 1rem; /* ≥16px: iOS tidak melakukan zoom otomatis */
   line-height: 1.5;
 }
 .field__control::placeholder {
-  color: var(--slate-2);
+  color: var(--text-muted);
 }
 .field__control:focus-visible {
-  outline: 3px solid var(--navy-2);
+  outline: 3px solid var(--focus);
   outline-offset: 1px;
-  border-color: var(--navy-2);
+  border-color: var(--accent);
 }
 textarea.field__control {
   min-height: 6rem;
@@ -47,8 +47,14 @@ textarea.field__control {
   border: 2px solid var(--error);
 }
 
+/* Di mode gelap --chip-bg terisi (white-soft), sehingga teks merah tetap 6,18:1. */
 .field__error {
+  align-self: flex-start;
   margin: 0;
+  padding: 0.1rem 0.45rem;
+  margin-left: -0.45rem;
+  border-radius: 4px;
+  background: var(--chip-bg);
   font-size: var(--fs-small);
   font-weight: 600;
   color: var(--error);

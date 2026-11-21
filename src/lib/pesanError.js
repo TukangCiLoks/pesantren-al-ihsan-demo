@@ -10,6 +10,9 @@ export const PESAN_JARINGAN =
 export function pesanError(error) {
   if (!error?.code) return PESAN_JARINGAN;
   switch (error.code) {
+    case '22023':
+      // Pesan dari fungsi/trigger kita sendiri (sudah berbahasa Indonesia), mis. "Susunan atasan membentuk lingkaran."
+      return error.message;
     case '42501':
       return 'Anda tidak memiliki izin untuk tindakan ini.';
     case '23514':

@@ -9,6 +9,18 @@
       content="Situs demo portofolio untuk pesantren fiktif Pesantren Al-Ihsan: profil, program SMP, SMA, dan tahfidz, berita, galeri, serta pendaftaran online."
     />
     <meta name="theme-color" content="#0B1F3A" />
+    <meta name="color-scheme" content="light dark" />
+    <!-- Pasang tema tersimpan SEBELUM CSS dimuat, supaya tidak ada kedipan putih
+         saat pengguna memilih mode gelap. Sinkron dengan src/hooks/useTema.js. -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('tema');
+          if (t === 'terang') document.documentElement.dataset.theme = 'light';
+          else if (t === 'gelap') document.documentElement.dataset.theme = 'dark';
+        } catch (e) {}
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <meta property="og:type" content="website" />

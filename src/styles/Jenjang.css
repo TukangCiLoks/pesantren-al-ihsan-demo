@@ -1,0 +1,25 @@
+.kurikulum-kartu {
+  padding: var(--space-6) var(--space-5);
+  border-top: 4px solid var(--heading);
+}
+.kurikulum-kartu h3 {
+  margin-bottom: var(--space-3);
+}
+.kurikulum-kartu__mapel {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: var(--space-1);
+}
+.kurikulum-kartu__mapel li::marker {
+  color: var(--heading);
+}
+
+.cta-jenjang p {
+  margin-top: 0;
+}
+.cta-jenjang__aksi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}

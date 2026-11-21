@@ -1,0 +1,2 @@
+# PDF berisi offset byte (xref); jangan ubah akhir baris.
+*.pdf binary

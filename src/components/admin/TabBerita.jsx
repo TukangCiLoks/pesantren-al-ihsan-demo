@@ -6,6 +6,7 @@ import ConfirmDialog from '../ConfirmDialog.jsx';
 import BeritaForm from './BeritaForm.jsx';
 import { ambilSemuaBerita, aturPublikasi, hapusBerita } from '../../lib/admin.js';
 import { formatTanggal } from '../../utils/format.js';
+import { JENIS } from '../../lib/berita.js';
 
 export default function TabBerita() {
   const [daftar, setDaftar] = useState({ status: 'memuat', data: [], error: '' });
@@ -16,6 +17,8 @@ export default function TabBerita() {
   const [akanDihapus, setAkanDihapus] = useState(null);
   const [menghapus, setMenghapus] = useState(false);
   const judulRef = useRef(null);
+  const [jenis, setJenis] = useState('');
+  const tampil = jenis ? daftar.data.filter((b) => (b.jenis ?? 'berita') === jenis) : daftar.data;
 
   const muat = useCallback(async () => {
     setDaftar((d) => ({ ...d, status: 'memuat' }));
@@ -40,7 +43,7 @@ export default function TabBerita() {
       ...d,
       data: diubah ? d.data.map((x) => (x.id === berita.id ? berita : x)) : [berita, ...d.data],
     }));
-    setPesan({ tone: 'success', teks: `Berita "${berita.judul}" ${diubah ? 'diperbarui' : 'ditambahkan'}.` });
+    setPesan({ tone: 'success', teks: `"${berita.judul}" ${diubah ? 'diperbarui' : 'ditambahkan'}.` });
     tutupForm();
   }
 
@@ -67,7 +70,7 @@ export default function TabBerita() {
     try {
       await hapusBerita(b.id);
       setDaftar((d) => ({ ...d, data: d.data.filter((x) => x.id !== b.id) }));
-      setPesan({ tone: 'success', teks: `Berita "${b.judul}" telah dihapus.` });
+      setPesan({ tone: 'success', teks: `"${b.judul}" telah dihapus.` });
       setAkanDihapus(null);
       requestAnimationFrame(() => judulRef.current?.focus());
     } catch (e) {
@@ -82,31 +85,51 @@ export default function TabBerita() {
     <section aria-labelledby="judul-berita">
       <div className="admin-panel__kepala">
         <h2 id="judul-berita" ref={judulRef} tabIndex={-1}>
-          Berita
+          Berita, pengumuman & agenda
         </h2>
-        {!form && (
-          <div className="admin-panel__alat">
+        <div className="admin-panel__alat">
+          <label htmlFor="filter-jenis" className="admin-filter__label">
+            Jenis
+          </label>
+          <select id="filter-jenis" className="field__control admin-filter" value={jenis} onChange={(e) => setJenis(e.target.value)}>
+            <option value="">Semua</option>
+            {Object.entries(JENIS).map(([k, label]) => (
+              <option key={k} value={k}>
+                {label}
+              </option>
+            ))}
+          </select>
+          {!form && (
             <Button variant="dark" className="btn--kecil" onClick={() => setForm({ awal: null })}>
-              + Tambah berita
+              + Tambah
             </Button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       <div aria-live="polite">{pesan && <StatusMessage tone={pesan.tone}>{pesan.teks}</StatusMessage>}</div>
 
-      {form && <BeritaForm key={form.awal?.id ?? 'baru'} awal={form.awal} onSimpan={setelahSimpan} onBatal={tutupForm} />}
+      {form && (
+        <BeritaForm
+          key={form.awal?.id ?? 'baru'}
+          awal={form.awal}
+          jenisAwal={jenis || 'berita'}
+          onSimpan={setelahSimpan}
+          onBatal={tutupForm}
+        />
+      )}
 
-      {daftar.status === 'memuat' && daftar.data.length === 0 && <StatusMessage>Memuat berita…</StatusMessage>}
+      {daftar.status === 'memuat' && daftar.data.length === 0 && <StatusMessage>Memuat…</StatusMessage>}
       {daftar.status === 'gagal' && <StatusMessage tone="error">{daftar.error}</StatusMessage>}
-      {daftar.status === 'selesai' && daftar.data.length === 0 && <StatusMessage>Belum ada berita.</StatusMessage>}
+      {daftar.status === 'selesai' && tampil.length === 0 && <StatusMessage>Belum ada data untuk jenis ini.</StatusMessage>}
 
-      {daftar.data.length > 0 && (
+      {tampil.length > 0 && (
         <div className="tabel-wrap" role="region" aria-labelledby="judul-berita" tabIndex={0}>
           <table className="tabel">
             <thead>
               <tr>
                 <th scope="col">Judul</th>
+                <th scope="col">Jenis</th>
                 <th scope="col">Kategori</th>
                 <th scope="col">Status</th>
                 <th scope="col">Dibuat</th>
@@ -116,17 +139,21 @@ export default function TabBerita() {
               </tr>
             </thead>
             <tbody>
-              {daftar.data.map((b) => (
+              {tampil.map((b) => (
                 <tr key={b.id}>
                   <td>
                     <strong>{b.judul}</strong>
                     {b.dipublikasi && (
                       <span className="tabel__sub">
-                        <Link to={`/berita/${b.id}`} target="_blank" rel="noopener">
+                        <Link to={`/informasi/${b.jenis ?? 'berita'}/${b.id}`} target="_blank" rel="noopener">
                           Lihat di situs<span className="visually-hidden"> (tab baru)</span>
                         </Link>
                       </span>
                     )}
+                  </td>
+                  <td>
+                    {JENIS[b.jenis ?? 'berita']}
+                    {b.jenis === 'agenda' && b.tanggal_acara && <span className="tabel__sub">{formatTanggal(b.tanggal_acara)}</span>}
                   </td>
                   <td>{b.kategori || '—'}</td>
                   <td>

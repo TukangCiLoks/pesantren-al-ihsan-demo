@@ -59,3 +59,19 @@ export const aturPublikasi = async (id, dipublikasi) =>
 
 export const hapusBerita = async (id) =>
   satuBaris(await jalankan(supabase.from('berita').delete().eq('id', id).select('id')));
+
+// ── Struktur organisasi ─────────────────────────────────────────────────
+export const ambilSemuaPengurus = () =>
+  jalankan(supabase.from('pengurus').select('*').order('unit').order('urutan'));
+
+/** Tambah (tanpa id) atau ubah (dengan id) pengurus. Bentuk pohon dijaga trigger di server. */
+export async function simpanPengurus({ id, ...data }) {
+  const q = id
+    ? supabase.from('pengurus').update(data).eq('id', id).select()
+    : supabase.from('pengurus').insert(data).select();
+  return satuBaris(await jalankan(q));
+}
+
+/** Bawahan dari pengurus yang dihapus otomatis menjadi akar (on delete set null). */
+export const hapusPengurus = async (id) =>
+  satuBaris(await jalankan(supabase.from('pengurus').delete().eq('id', id).select('id')));

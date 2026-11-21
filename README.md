@@ -9,31 +9,39 @@ lewat `@supabase/supabase-js` v2 · CSS biasa (tanpa Tailwind, library UI, atau 
 
 ## Fitur
 
-- **Beranda:** header dengan menu hamburger, hero berilustrasi SVG, statistik, profil
-  dan program, berita terbaru (dari Supabase), galeri, formulir pendaftaran, footer.
-- **Detail berita:** `/berita/:id`, isi dirender sebagai teks per paragraf.
+- **Situs instansi ±30 halaman** dengan menu bertingkat (menu › submenu › sub-submenu), bar atas
+  berisi kontak & ikon media sosial, breadcrumb, dan footer peta situs.
+  - **Profil:** sejarah (linimasa), visi & misi, struktur organisasi (bagan dari database),
+    pengasuh & asatidz, 4 halaman fasilitas berilustrasi.
+  - **Pendidikan:** SMP, SMA, Tahfidz (kurikulum + jadwal harian), ekstrakurikuler, kalender akademik.
+  - **Informasi:** berita & pengumuman (cari, filter kategori, paginasi), agenda (mendatang/lewat),
+    detail dengan tombol Bagikan, galeri, unduhan PDF.
+  - **PPDB:** alur, syarat, biaya, formulir online, FAQ. **Kontak** dengan kartu media sosial.
 - **Pendaftaran online:** validasi klien, nomor `PSN-2026-0001` dari server, pencegahan
   kirim ganda, pesan ramah untuk error server/jaringan.
-- **Panel admin** (`/admin`, dimuat lazy): login Supabase Auth, tab *Pendaftar* (filter,
-  ubah status, hapus dengan dialog konfirmasi) dan tab *Berita* (tambah, ubah, terbitkan/tarik,
-  hapus), tombol keluar.
+- **Panel admin** (`/admin`, dimuat lazy): kelola pendaftar, berita/pengumuman/agenda, dan
+  struktur organisasi.
+- **Mode terang/gelap/ikuti sistem** dengan token warna semantik; kontras ≥ 4,5:1 di kedua mode.
 - **Enam animasi CSS** (Ken Burns, text reveal, CTA berdenyut, scroll reveal, hover, counter),
-  semuanya mati bila `prefers-reduced-motion: reduce`.
+  semuanya mati bila `prefers-reduced-motion: reduce`. Semua tanggal & jam ditampilkan dalam WIB.
 
 ## Struktur
 
 ```
 src/
-  main.jsx, App.jsx           rute; area admin lewat React.lazy
-  lib/                        supabase.js (klien tunggal), berita.js, pendaftaran.js, admin.js, pesanError.js
-  hooks/                      useReveal, useCountUp, useReducedMotion, useAuth, useDocumentTitle
-  components/                 bagian halaman publik, FormField, ConfirmDialog, ProtectedRoute, admin/
-  pages/                      Beranda, BeritaDetail, NotFound, AdminLayout, AdminLogin, AdminDashboard
-  styles/                     tokens.css, global.css, satu file per komponen
-  data/konten.js              konten statis dummy
-  utils/                      validasi.js, format.js
-sql/schema.sql                tabel, trigger, RPC, GRANT, RLS, seed
-scripts/uji-rls.mjs           uji RLS dari sudut pandang pengunjung
+  main.jsx, App.jsx           rute (dari data/menu.js); halaman konten & admin lewat React.lazy
+  lib/                        supabase.js (klien tunggal), berita.js, pengurus.js, pendaftaran.js, admin.js
+  hooks/                      useReveal, useCountUp, useReducedMotion, useAuth, useTema, useMediaQuery, …
+  components/                 kerangka (Header, NavUtama, TopBar, Footer, PageHeader, Halaman), komponen isi, admin/
+  pages/                      Beranda, Kontak, profil/, pendidikan/, informasi/, ppdb/, admin
+  styles/                     tokens.css (palet + token semantik), global.css, satu file per komponen
+  data/                       menu.js, konten.js, profil.js, pendidikan.js, ppdb.js, unduhan.js, data contoh
+  utils/                      menu.js, pohon.js, validasi.js, format.js
+sql/schema.sql                tabel inti, trigger, RPC, GRANT, RLS, seed
+sql/002_pengurus.sql          struktur organisasi
+sql/003_informasi.sql         jenis berita/pengumuman/agenda
+scripts/                      uji-rls.mjs, buat-pdf-contoh.mjs, audit-kontras.browser.js
+public/unduhan/               PDF contoh
 ```
 
 ## 1. Setup Supabase
@@ -49,6 +57,13 @@ scripts/uji-rls.mjs           uji RLS dari sudut pandang pengunjung
    ```sql
    insert into public.admin_emails (email) values ('email-admin-anda@contoh.com');
    ```
+6. **Jalankan migrasi Struktur Organisasi:** SQL Editor › New query → tempel seluruh isi
+   [`sql/002_pengurus.sql`](sql/002_pengurus.sql) → Run (setelah `schema.sql`). Membuat tabel
+   `pengurus` beserta RLS, pengaman bentuk bagan, dan susunan pengurus contoh. Aman dijalankan ulang.
+7. **Jalankan migrasi Informasi:** tempel isi [`sql/003_informasi.sql`](sql/003_informasi.sql) → Run.
+   Menambah kolom `jenis` (berita/pengumuman/agenda), `tanggal_acara`, dan `lokasi` ke tabel
+   `berita`, plus pengumuman & agenda contoh. **Wajib** sebelum memakai versi situs ini:
+   tanpa kolom `jenis`, daftar berita menampilkan pesan "Kolom informasi belum dibuat".
 
 ## 2. Isi `.env.local`
 
@@ -73,10 +88,11 @@ npm run dev        # http://localhost:5173
 npm run build      # hasil di dist/
 npm run preview    # menjalankan hasil build
 npm run uji:rls    # uji RLS (butuh .env.local)
+node scripts/buat-pdf-contoh.mjs   # buat ulang PDF contoh di public/unduhan/
 ```
 
-Tanpa `.env.local`, situs tetap tampil; bagian berita, formulir, dan admin menampilkan
-pesan "Supabase belum dikonfigurasi".
+Tanpa `.env.local`, situs tetap tampil: berita dan bagan struktur memakai data contoh
+berlabel "Contoh", sedangkan formulir dan admin menampilkan pesan "Supabase belum dikonfigurasi".
 
 ## 4. Panel admin
 
@@ -84,8 +100,13 @@ pesan "Supabase belum dikonfigurasi".
 2. Masuk dengan akun dari langkah Setup 4–5.
 3. Tab **Pendaftar**: filter status, ubah status (baru → diverifikasi → diterima/ditolak),
    hapus lewat dialog konfirmasi.
-4. Tab **Berita**: *+ Tambah berita*, *Ubah*, *Terbitkan/Tarik*, *Hapus*. Isi berita berupa
-   teks biasa; pisahkan paragraf dengan satu baris kosong. HTML tidak diproses.
+4. Tab **Berita**: filter jenis (berita/pengumuman/agenda), *+ Tambah*, *Ubah*, *Terbitkan/Tarik*,
+   *Hapus*. Agenda wajib diberi tanggal & jam acara (WIB), lokasi opsional. Isi berupa teks biasa;
+   pisahkan paragraf dengan satu baris kosong. HTML tidak diproses.
+5. Tab **Struktur**: pilih unit (Yayasan / Pimpinan / Unit Pendidikan), tambah atau ubah
+   pengurus beserta atasan langsungnya, nonaktifkan (tidak tampil di situs) atau hapus.
+   Bawahan dari pengurus yang dihapus otomatis menjadi puncak bagan. Server menolak susunan
+   yang melingkar atau atasan dari unit lain.
 
 Akun yang bisa login tetapi tidak ada di `admin_emails` hanya melihat "Akses ditolak".
 

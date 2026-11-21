@@ -1,0 +1,32 @@
+/* Tombol tema selalu berada di header navy (kedua mode), jadi warnanya tetap. */
+.tema-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 2.875rem;
+  height: 2.875rem;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--white-a15);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--white);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.tema-toggle:hover {
+  background: var(--white-a15);
+}
+
+/* Teks label hanya di layar lebar; di ponsel cukup ikon (label tetap dibacakan). */
+.tema-toggle__teks {
+  display: none;
+}
+@media (min-width: 1200px) {
+  .tema-toggle__teks {
+    display: inline;
+  }
+}

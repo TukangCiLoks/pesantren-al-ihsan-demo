@@ -21,12 +21,12 @@
   gap: var(--space-3);
   font-family: var(--font-sub);
   font-weight: 700;
-  color: var(--navy);
+  color: var(--heading);
 }
 .profil__nilai svg {
   flex-shrink: 0;
   margin-top: 0.15rem;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .profil__subjudul {
@@ -35,7 +35,7 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--slate);
+  color: var(--text);
   margin-bottom: var(--space-4);
 }
 
@@ -54,15 +54,15 @@
   gap: var(--space-4);
   margin-top: var(--space-7);
   padding: var(--space-6);
-  border: 1px solid var(--slate-line);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: var(--white-soft);
+  background: var(--bg-alt);
 }
 .profil__cta p {
   margin: 0;
   font-family: var(--font-sub);
   font-weight: 700;
-  color: var(--navy);
+  color: var(--heading);
   font-size: var(--fs-lead);
 }
 

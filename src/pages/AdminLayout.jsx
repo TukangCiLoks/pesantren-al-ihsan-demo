@@ -3,6 +3,7 @@ import { Link, Outlet } from 'react-router-dom';
 import SkipLink from '../components/SkipLink.jsx';
 import Logo from '../components/Logo.jsx';
 import StatusMessage from '../components/StatusMessage.jsx';
+import ThemeToggle from '../components/ThemeToggle.jsx';
 import '../styles/Admin.css';
 
 /** Kerangka area admin: header ringkas, tanpa menu publik. */
@@ -26,6 +27,7 @@ export default function AdminLayout() {
           <Link to="/" className="admin-header__kembali">
             ← Kembali ke situs
           </Link>
+          <ThemeToggle />
         </div>
       </header>
       <main id="konten" tabIndex={-1} className="admin-main">

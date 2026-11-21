@@ -13,8 +13,8 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--space-6) var(--space-4);
-  background: var(--white);
-  border: 1px solid var(--slate-line);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
 }
@@ -31,7 +31,7 @@
   font-weight: 700;
   font-size: clamp(2rem, 1.6rem + 2vw, 3rem);
   line-height: 1.1;
-  color: var(--navy);
+  color: var(--heading);
   font-variant-numeric: tabular-nums;
 }
 
@@ -41,7 +41,7 @@
   font-size: var(--fs-small);
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: var(--slate);
+  color: var(--text);
 }
 
 @media (min-width: 768px) {
@@ -50,6 +50,6 @@
     padding: var(--space-7) var(--space-5);
   }
   .stat + .stat {
-    border-left: 1px solid var(--slate-line);
+    border-left: 1px solid var(--border);
   }
 }

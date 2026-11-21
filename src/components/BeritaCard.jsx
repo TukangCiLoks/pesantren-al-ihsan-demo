@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import PolaGeometri from './PolaGeometri.jsx';
 import { formatTanggal } from '../utils/format.js';
+import { tautanInformasi } from '../lib/berita.js';
 import '../styles/Card.css';
 import '../styles/BeritaCard.css';
 
 /** Kartu berita. Semua data dirender sebagai teks biasa lewat JSX. */
-export default function BeritaCard({ id, judul, ringkasan, kategori, created_at, contoh }) {
+export default function BeritaCard({ id, jenis, judul, ringkasan, kategori, created_at, contoh }) {
   return (
     <article className="card card--interaktif berita-card">
       <div className="thumb">
@@ -19,7 +20,7 @@ export default function BeritaCard({ id, judul, ringkasan, kategori, created_at,
         </p>
         <h3 className="berita-card__judul">
           {/* Tautan "melebar" menutupi seluruh kartu agar mudah diklik. */}
-          <Link to={`/berita/${id}`} className="berita-card__link">
+          <Link to={tautanInformasi({ id, jenis })} className="berita-card__link">
             {judul}
           </Link>
         </h3>

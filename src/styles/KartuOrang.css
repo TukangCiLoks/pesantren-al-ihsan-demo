@@ -1,0 +1,26 @@
+.kartu-orang {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-6) var(--space-5);
+  text-align: center;
+}
+.kartu-orang__avatar {
+  flex-shrink: 0;
+}
+.kartu-orang__nama {
+  margin: 0 0 var(--space-1);
+  font-size: 1.15rem;
+}
+.kartu-orang__peran {
+  margin: 0;
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--accent);
+}
+.kartu-orang__bidang {
+  margin: var(--space-1) 0 0;
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}

@@ -6,10 +6,10 @@
   overflow-x: clip;
 }
 .section--white {
-  background: var(--white);
+  background: var(--bg);
 }
 .section--soft {
-  background: var(--white-soft);
+  background: var(--bg-alt);
 }
 .section--navy {
   background: var(--navy);

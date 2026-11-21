@@ -57,11 +57,11 @@
   margin-bottom: var(--space-3);
   font-family: var(--font-sub);
   font-size: var(--fs-small);
-  color: var(--slate-2);
+  color: var(--text-muted);
 }
 .berita-card__kategori {
   font-weight: 700;
-  color: var(--navy-2);
+  color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -71,7 +71,7 @@
 }
 
 .berita-card__link {
-  color: var(--navy);
+  color: var(--heading);
   text-decoration: none;
 }
 .berita-card__link::before {
@@ -82,14 +82,14 @@
   border-radius: var(--radius);
 }
 .berita-card__link:hover {
-  color: var(--navy-2);
+  color: var(--accent);
 }
 /* Fokus keyboard digambar pada seluruh kartu. */
 .berita-card__link:focus-visible {
   outline: none;
 }
 .berita-card__link:focus-visible::before {
-  outline: 3px solid var(--navy-2);
+  outline: 3px solid var(--focus);
   outline-offset: 3px;
 }
 
@@ -101,5 +101,5 @@
   margin-top: auto;
   font-family: var(--font-sub);
   font-weight: 700;
-  color: var(--navy-2);
+  color: var(--accent);
 }

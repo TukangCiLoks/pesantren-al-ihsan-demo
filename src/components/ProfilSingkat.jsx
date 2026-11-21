@@ -19,7 +19,8 @@ export default function ProfilSingkat() {
               <li key={n}>
                 <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
                   <circle cx="12" cy="12" r="11" fill="currentColor" />
-                  <path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  {/* Centang memakai warna latar halaman agar kontras di kedua tema. */}
+                  <path d="M7 12.5l3.2 3.2L17 9" fill="none" style={{ stroke: 'var(--bg)' }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 {n}
               </li>
@@ -44,7 +45,7 @@ export default function ProfilSingkat() {
       <Reveal className="profil__cta">
         <p>Penerimaan santri baru tahun ajaran 2026/2027 telah dibuka.</p>
         {/* Animasi 3 — varian navy untuk latar terang */}
-        <Button to="/#daftar" variant="dark" pulse>
+        <Button to="/ppdb/alur" variant="dark" pulse>
           Lihat Alur Pendaftaran
         </Button>
       </Reveal>

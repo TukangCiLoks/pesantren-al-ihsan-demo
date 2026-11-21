@@ -7,12 +7,20 @@
   box-shadow: 0 1px 0 var(--white-a15);
 }
 
+/* Urutan: logo … [hamburger] [menu] [tombol tema]. Logo mendorong sisanya ke kanan. */
 .header__bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   min-height: var(--header-h);
-  gap: var(--space-4);
+  gap: var(--space-2);
+}
+@media (min-width: 401px) {
+  .header__bar {
+    gap: var(--space-3);
+  }
+}
+.header__bar > .logo {
+  margin-right: auto;
 }
 
 .header__toggle {
@@ -29,11 +37,14 @@
   cursor: pointer;
 }
 
-/* Mobile: menu turun di bawah header, tampil hanya bila dibuka. */
+/* Ponsel/tablet: menu turun di bawah header sebagai panel, tampil hanya bila dibuka.
+   Panel bisa digulir sendiri karena menu bertingkat bisa lebih tinggi dari layar. */
 .header__nav {
   display: none;
   position: absolute;
   inset: var(--header-h) 0 auto 0;
+  max-height: calc(100vh - var(--header-h));
+  overflow-y: auto;
   padding: var(--space-4) var(--gutter) var(--space-6);
   background: var(--navy);
   border-top: 1px solid var(--white-a15);
@@ -43,51 +54,13 @@
   display: block;
 }
 
-.header__list {
-  list-style: none;
-  margin: 0 0 var(--space-5);
-  padding: 0;
-}
-
-.header__link {
-  position: relative;
-  display: inline-block;
-  padding: var(--space-3) 0;
-  font-family: var(--font-sub);
-  font-weight: 700;
-  color: var(--white);
-  text-decoration: none;
-}
-.header__link:hover {
-  color: var(--white);
-}
-/* Animasi 5 — hover menu: garis bawah tumbuh dari tengah (scaleX). */
-.header__link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.35rem;
-  height: 2px;
-  border-radius: 2px;
-  background: currentColor;
-  transform: scaleX(0);
-}
-.header__link:hover::after,
-.header__link:focus-visible::after {
-  transform: scaleX(1);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .header__link::after {
-    transition: transform 0.3s var(--ease-out);
-  }
-}
-
 .header__cta {
   width: 100%;
+  margin-top: var(--space-5);
 }
 
-@media (min-width: 960px) {
+/* Menu penuh di header mulai 1100px (6 menu + tombol daftar + tombol tema). */
+@media (min-width: 1100px) {
   .header__toggle {
     display: none;
   }
@@ -97,20 +70,15 @@
     align-items: center;
     gap: var(--space-5);
     position: static;
+    max-height: none;
+    overflow: visible;
     padding: 0;
     border: 0;
     box-shadow: none;
     background: none;
   }
-  .header__list {
-    display: flex;
-    gap: var(--space-5);
-    margin: 0;
-  }
-  .header__link {
-    padding: var(--space-2) 0;
-  }
   .header__cta {
     width: auto;
+    margin-top: 0;
   }
 }

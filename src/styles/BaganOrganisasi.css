@@ -1,0 +1,175 @@
+/* ── Bagan organisasi ─────────────────────────────────────────────────────
+   Dasar (ponsel): daftar menjorok bergaris di kiri.
+   ≥ 900px: bagan pohon klasik dengan garis penghubung dari ::before/::after. */
+
+.bagan-wadah {
+  position: relative; /* lihat catatan .visually-hidden di CLAUDE.md */
+  overflow-x: auto;
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.bagan,
+.bagan ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bagan__simpul {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-left: 4px solid var(--heading);
+  border-radius: 8px;
+  text-align: left;
+}
+.bagan__avatar {
+  flex-shrink: 0;
+}
+.bagan__teks {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+.bagan__jabatan {
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  color: var(--accent);
+}
+.bagan__nama {
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--heading);
+}
+
+/* Ponsel: jorokan + garis */
+.bagan > li + li {
+  margin-top: var(--space-5);
+}
+.bagan ul {
+  margin-left: 1.25rem;
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--border-strong);
+}
+.bagan ul > li {
+  position: relative;
+  padding-top: var(--space-3);
+}
+.bagan ul > li::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--space-4));
+  top: calc(var(--space-3) + 1.6rem);
+  width: var(--space-4);
+  height: 2px;
+  background: var(--border-strong);
+}
+
+@media (min-width: 900px) {
+  .bagan-wadah {
+    padding: var(--space-6);
+  }
+  .bagan,
+  .bagan ul {
+    display: flex;
+    justify-content: center;
+  }
+  /* Beberapa puncak (mis. Kepala SMP, SMA, Tahfidz) ditumpuk vertikal, satu sub-bagan per
+     baris, agar tidak melebar ke samping. Bila satu sub-bagan tetap lebih lebar dari layar,
+     wadah bisa digeser mendatar. */
+  .bagan {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-7);
+    min-width: max-content;
+  }
+  .bagan > li + li {
+    margin-top: 0;
+  }
+  .bagan li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bagan ul {
+    position: relative;
+    margin: 0;
+    padding: 1.5rem 0 0;
+    border: 0;
+  }
+  /* Garis turun dari induk ke batang horizontal */
+  .bagan ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 1.5rem;
+    border-left: 2px solid var(--border-strong);
+  }
+  .bagan ul > li {
+    position: relative;
+    padding: 1.5rem var(--space-3) 0;
+  }
+  /* Batang horizontal: separuh kiri (::before) & kanan (::after) di atas tiap anak */
+  .bagan ul > li::before,
+  .bagan ul > li::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 1.5rem;
+    border-top: 2px solid var(--border-strong);
+    background: none;
+  }
+  .bagan ul > li::before {
+    left: 0;
+  }
+  .bagan ul > li::after {
+    left: 50%;
+    border-left: 2px solid var(--border-strong);
+  }
+  .bagan ul > li:first-child::before,
+  .bagan ul > li:last-child::after {
+    border-top: 0;
+  }
+  .bagan ul > li:last-child::before {
+    border-right: 2px solid var(--border-strong);
+    border-top-right-radius: 6px;
+    width: calc(50% + 2px);
+  }
+  .bagan ul > li:last-child::after {
+    border-left: 0;
+  }
+  .bagan ul > li:first-child::after {
+    border-top-left-radius: 6px;
+  }
+  .bagan ul > li:only-child::before {
+    display: none;
+  }
+  .bagan ul > li:only-child::after {
+    border-top: 0;
+    border-radius: 0;
+  }
+
+  .bagan__simpul {
+    flex-direction: column;
+    gap: var(--space-2);
+    width: 12.5rem;
+    padding: var(--space-4) var(--space-3);
+    border-left-width: 1px;
+    border-top: 4px solid var(--heading);
+    text-align: center;
+  }
+  .bagan__teks {
+    align-items: center;
+  }
+}

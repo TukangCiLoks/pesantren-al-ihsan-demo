@@ -4,10 +4,18 @@ import Button from '../Button.jsx';
 import StatusMessage from '../StatusMessage.jsx';
 import { URUTAN_BERITA, validasiBerita } from '../../utils/validasi.js';
 import { simpanBerita } from '../../lib/admin.js';
+import { JENIS } from '../../lib/berita.js';
+import { dariInputWaktu, keInputWaktu } from '../../utils/format.js';
 
-/** Formulir tambah/ubah berita. `awal` null = berita baru. */
-export default function BeritaForm({ awal, onSimpan, onBatal }) {
+/**
+ * Formulir tambah/ubah berita, pengumuman, atau agenda. `awal` null = baru.
+ * Agenda wajib punya tanggal acara (juga dijaga CHECK di database).
+ */
+export default function BeritaForm({ awal, jenisAwal = 'berita', onSimpan, onBatal }) {
   const [nilai, setNilai] = useState({
+    jenis: awal?.jenis ?? jenisAwal,
+    tanggal_acara: keInputWaktu(awal?.tanggal_acara),
+    lokasi: awal?.lokasi ?? '',
     judul: awal?.judul ?? '',
     kategori: awal?.kategori ?? '',
     ringkasan: awal?.ringkasan ?? '',
@@ -51,6 +59,10 @@ export default function BeritaForm({ awal, onSimpan, onBatal }) {
         kategori: nilai.kategori.trim() || null,
         ringkasan: nilai.ringkasan.trim() || null,
         isi: nilai.isi.trim(),
+        jenis: nilai.jenis,
+        // Isian datetime-local dianggap jam WIB (lihat dariInputWaktu), apa pun zona waktu perangkat admin.
+        tanggal_acara: nilai.jenis === 'agenda' ? dariInputWaktu(nilai.tanggal_acara) : null,
+        lokasi: nilai.jenis === 'agenda' ? nilai.lokasi.trim() || null : null,
         dipublikasi: nilai.dipublikasi,
       });
       onSimpan(tersimpan, Boolean(awal));
@@ -76,13 +88,26 @@ export default function BeritaForm({ awal, onSimpan, onBatal }) {
   return (
     <form className="admin-kartu berita-form" onSubmit={kirim} noValidate aria-busy={menyimpan}>
       <h3 ref={judulRef} tabIndex={-1}>
-        {awal ? 'Ubah berita' : 'Tambah berita'}
+        {awal ? 'Ubah' : 'Tambah'} {JENIS[nilai.jenis].toLowerCase()}
       </h3>
       <fieldset className="berita-form__grup" disabled={menyimpan}>
         <legend className="visually-hidden">Isi berita</legend>
         <div className="berita-form__grid">
+          <FormField {...umum('jenis')} as="select" label="Jenis">
+            {Object.entries(JENIS).map(([k, label]) => (
+              <option key={k} value={k}>
+                {label}
+              </option>
+            ))}
+          </FormField>
+          <FormField {...umum('kategori')} label="Kategori (opsional)" maxLength={40} required={false} hint="Contoh: Kegiatan, Akademik" />
+          {nilai.jenis === 'agenda' && (
+            <>
+              <FormField {...umum('tanggal_acara')} type="datetime-local" label="Tanggal & jam acara" hint="Waktu Indonesia Barat (WIB)." />
+              <FormField {...umum('lokasi')} label="Lokasi (opsional)" maxLength={120} required={false} hint="Contoh: Aula Pesantren" />
+            </>
+          )}
           <FormField {...umum('judul')} label="Judul" maxLength={160} className="span-2" />
-          <FormField {...umum('kategori')} label="Kategori (opsional)" maxLength={40} required={false} hint="Contoh: Pengumuman, Kegiatan" />
           <FormField
             {...umum('ringkasan')}
             as="textarea"
@@ -96,7 +121,7 @@ export default function BeritaForm({ awal, onSimpan, onBatal }) {
             {...umum('isi')}
             as="textarea"
             rows={8}
-            label="Isi berita"
+            label="Isi"
             maxLength={20000}
             hint="Teks biasa. Pisahkan paragraf dengan satu baris kosong. HTML tidak diproses."
             className="span-2"

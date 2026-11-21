@@ -1,20 +1,20 @@
 import Section from './Section.jsx';
 import AlurPendaftaran from './AlurPendaftaran.jsx';
-import FormPendaftaran from './FormPendaftaran.jsx';
+import AjakanDaftar from './AjakanDaftar.jsx';
+import '../styles/PPDB.css';
 
+/** Bagian PPDB di beranda: alur ringkas + ajakan ke formulir (formulirnya di /ppdb/formulir). */
 export default function Pendaftaran() {
   return (
     <Section
       id="daftar"
       tone="soft"
-      eyebrow="Pendaftaran online"
-      title="Alur & formulir pendaftaran santri baru"
-      intro="Empat langkah sederhana. Nomor pendaftaran langsung muncul setelah formulir terkirim."
+      eyebrow="Penerimaan santri baru"
+      title="Pendaftaran tahun ajaran 2026/2027"
+      intro="Empat langkah sederhana. Nomor pendaftaran langsung muncul setelah formulir online terkirim."
     >
       <AlurPendaftaran />
-      {/* Sengaja tanpa Reveal: formulir panjang bisa tidak pernah mencapai ambang
-          terlihat di layar kecil, dan isian yang difokus harus selalu tampak. */}
-      <FormPendaftaran />
+      <AjakanDaftar sekunder={{ to: '/ppdb/syarat', label: 'Syarat & biaya' }} />
     </Section>
   );
 }

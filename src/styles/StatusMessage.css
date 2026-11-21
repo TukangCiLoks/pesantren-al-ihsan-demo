@@ -1,13 +1,19 @@
 .status {
   padding: var(--space-4) var(--space-5);
-  border: 1px solid var(--slate-line);
+  border: 1px solid var(--border);
   border-left-width: 4px;
   border-radius: var(--radius);
-  background: var(--white);
-  color: var(--slate);
+  background: var(--surface);
+  color: var(--text);
 }
 .status--info {
-  border-left-color: var(--navy-2);
+  border-left-color: var(--accent);
+}
+/* Teks merah/hijau tidak cukup kontras di atas navy, jadi pesan error/sukses
+   selalu berlatar terang (putih di mode terang, white-soft di mode gelap). */
+.status--error,
+.status--success {
+  background: var(--status-bg);
 }
 .status--error {
   border-left-color: var(--error);

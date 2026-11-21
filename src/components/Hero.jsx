@@ -29,10 +29,10 @@ export default function Hero() {
         </p>
         <div className="hero__actions hero__anim" style={{ '--d': '720ms' }}>
           {/* Animasi 3 — CTA berdenyut, varian putih di atas navy */}
-          <Button to="/#daftar" variant="light" pulse>
+          <Button to="/ppdb/formulir" variant="light" pulse>
             Daftar Sekarang
           </Button>
-          <Button to="/#profil" variant="ghost-light">
+          <Button to="/profil" variant="ghost-light">
             Kenali Kami
           </Button>
         </div>

@@ -14,7 +14,7 @@
   bottom: 1.75rem;
   left: 1.75rem;
   width: 2px;
-  background: var(--slate-line);
+  background: var(--border);
 }
 
 .alur__langkah {
@@ -34,9 +34,9 @@
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
-  background: var(--navy);
-  color: var(--white);
-  box-shadow: 0 0 0 6px var(--white-soft); /* "memotong" garis agar ikon tampak berdiri sendiri */
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow: 0 0 0 6px var(--bg-alt); /* "memotong" garis agar ikon tampak berdiri sendiri */
 }
 
 .alur__nomor {
@@ -46,7 +46,7 @@
   font-size: var(--fs-small);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--navy-2);
+  color: var(--accent);
 }
 .alur__judul {
   margin-bottom: var(--space-2);

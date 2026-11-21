@@ -20,13 +20,15 @@
   opacity: 0.6;
 }
 
+/* Tombol utama di area konten: mengikuti tema
+   (navy + teks putih di mode terang, putih + teks navy di mode gelap). */
 .btn--dark {
-  background: var(--navy);
-  color: var(--white);
+  background: var(--primary);
+  color: var(--on-primary);
 }
 .btn--dark:hover {
-  background: var(--navy-2);
-  color: var(--white);
+  background: var(--primary-hover);
+  color: var(--on-primary);
 }
 
 .btn--light {
@@ -48,14 +50,15 @@
   color: var(--white);
 }
 
+/* Tombol sekunder bergaris di area konten (ikut tema). */
 .btn--ghost-dark {
-  background: var(--white);
-  border-color: var(--navy);
-  color: var(--navy);
+  background: var(--surface);
+  border-color: var(--heading);
+  color: var(--heading);
 }
 .btn--ghost-dark:hover {
-  background: var(--white-soft);
-  color: var(--navy-2);
+  background: var(--surface-alt);
+  color: var(--heading);
 }
 
 /* Tindakan merusak (hapus). Memakai warna status error. */
@@ -91,7 +94,8 @@
     position: absolute;
     inset: -2px;
     border-radius: inherit;
-    border: 2px solid var(--navy-a40);
+    /* --primary transparan: navy di mode terang, putih di mode gelap */
+    border: 2px solid color-mix(in srgb, var(--primary) 45%, transparent);
     pointer-events: none;
     opacity: 0;
     animation: cta-pulse 2.6s var(--ease-out) infinite;

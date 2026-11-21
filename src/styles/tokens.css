@@ -30,6 +30,36 @@
   --white-a15: rgba(255, 255, 255, 0.15);
   --white-a80: rgba(255, 255, 255, 0.8);
 
+  /* ── Token semantik (berdasarkan PERAN). Komponen di area konten memakai
+     ini, bukan nama warna, supaya mode gelap cukup menukar nilainya.
+     Bagian yang selalu navy di kedua mode (header, hero, pita ayat, footer)
+     tetap memakai palet langsung. ── */
+  color-scheme: light;
+  --bg: var(--white); /* latar halaman */
+  --bg-alt: var(--white-soft); /* latar bagian selang-seling */
+  --surface: var(--white); /* kartu, formulir, tabel, dialog */
+  --surface-alt: var(--white-soft); /* bidang di dalam kartu (kepala tabel, kotak CTA) */
+  --text: var(--slate); /* teks isi */
+  --text-muted: var(--slate-2); /* teks sekunder, hanya ≥ 14px */
+  --heading: var(--navy); /* judul, label, angka */
+  --accent: var(--navy-2); /* tautan, eyebrow, ikon kecil */
+  --border: var(--slate-line); /* garis pemisah & tepi kartu */
+  --border-strong: var(--slate-2); /* tepi isian formulir (≥ 3:1) */
+  --primary: var(--navy); /* tombol utama, kotak ikon, lencana */
+  --primary-hover: var(--navy-2);
+  --on-primary: var(--white); /* teks/ikon di atas --primary */
+  --focus: var(--navy-2); /* cincin fokus */
+  --field-bg: var(--white);
+  --chip-bg: transparent; /* latar pesan error isian (diisi di mode gelap) */
+  --status-bg: var(--white); /* latar pesan error/sukses */
+  --shadow-sm: 0 1px 2px var(--navy-a08), 0 4px 14px var(--navy-a08);
+  --shadow-lg: 0 14px 34px var(--navy-a14);
+  --backdrop: var(--navy-a40);
+  /* Ilustrasi placeholder (PolaGeometri) varian terang */
+  --ilus-terang-1: var(--white-soft);
+  --ilus-terang-2: var(--slate-line);
+  --ilus-garis-terang: var(--navy-2);
+
   /* Font */
   --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
   --font-logo: 'Cinzel', Georgia, serif;
@@ -62,9 +92,77 @@
   /* Bentuk */
   --radius: 12px;
   --radius-pill: 999px;
-  --shadow-sm: 0 1px 2px var(--navy-a08), 0 4px 14px var(--navy-a08);
-  --shadow-lg: 0 14px 34px var(--navy-a14);
 
   /* Gerak */
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/*
+ * ── MODE GELAP ──────────────────────────────────────────────────────────
+ * Palet sama, penempatan dibalik: navy jadi latar, putih/slate-line jadi teks.
+ * Berlaku bila (a) pengguna memilih "Gelap", atau (b) memilih "Ikuti sistem"
+ * dan sistemnya gelap. Kedua blok di bawah harus identik.
+ *
+ * Kontras (dihitung):
+ *   text slate-line / navy 13,40 · / navy-2 10,38 · / surface-alt 7,70
+ *   text-muted / navy 9,32 · / navy-2 7,22 · / surface-alt 5,36
+ *   heading putih / navy-2 12,80 · on-primary navy / putih 16,52
+ *   border-strong (putih 55%) / navy-2 4,98 (syarat kontrol ≥ 3:1)
+ *   pesan error #B91C1C di chip white-soft 6,18
+ *   slate-2 / navy hanya 3,47 → TIDAK dipakai sebagai teks di mode gelap.
+ */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: var(--navy);
+  --bg-alt: color-mix(in srgb, var(--navy) 94%, var(--white));
+  --surface: var(--navy-2);
+  --surface-alt: color-mix(in srgb, var(--navy-2) 90%, var(--white));
+  --text: var(--slate-line);
+  --text-muted: color-mix(in srgb, var(--slate-line) 80%, var(--navy-2));
+  --heading: var(--white);
+  --accent: var(--white);
+  --border: rgba(255, 255, 255, 0.14);
+  --border-strong: rgba(255, 255, 255, 0.55);
+  --primary: var(--white);
+  --primary-hover: var(--white-soft);
+  --on-primary: var(--navy);
+  --focus: var(--white);
+  --field-bg: var(--navy);
+  --chip-bg: var(--white-soft);
+  --status-bg: var(--white-soft);
+  --shadow-sm: 0 1px 2px rgba(11, 31, 58, 0.5), 0 4px 14px rgba(11, 31, 58, 0.5);
+  --shadow-lg: 0 14px 34px rgba(11, 31, 58, 0.7);
+  --backdrop: rgba(11, 31, 58, 0.75);
+  --ilus-terang-1: var(--navy-2);
+  --ilus-terang-2: color-mix(in srgb, var(--navy-2) 85%, var(--white));
+  --ilus-garis-terang: var(--white);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: var(--navy);
+    --bg-alt: color-mix(in srgb, var(--navy) 94%, var(--white));
+    --surface: var(--navy-2);
+    --surface-alt: color-mix(in srgb, var(--navy-2) 90%, var(--white));
+    --text: var(--slate-line);
+    --text-muted: color-mix(in srgb, var(--slate-line) 80%, var(--navy-2));
+    --heading: var(--white);
+    --accent: var(--white);
+    --border: rgba(255, 255, 255, 0.14);
+    --border-strong: rgba(255, 255, 255, 0.55);
+    --primary: var(--white);
+    --primary-hover: var(--white-soft);
+    --on-primary: var(--navy);
+    --focus: var(--white);
+    --field-bg: var(--navy);
+    --chip-bg: var(--white-soft);
+    --status-bg: var(--white-soft);
+    --shadow-sm: 0 1px 2px rgba(11, 31, 58, 0.5), 0 4px 14px rgba(11, 31, 58, 0.5);
+    --shadow-lg: 0 14px 34px rgba(11, 31, 58, 0.7);
+    --backdrop: rgba(11, 31, 58, 0.75);
+    --ilus-terang-1: var(--navy-2);
+    --ilus-terang-2: color-mix(in srgb, var(--navy-2) 85%, var(--white));
+    --ilus-garis-terang: var(--white);
+  }
 }

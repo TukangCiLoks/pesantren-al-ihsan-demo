@@ -13,6 +13,7 @@
 
 .galeri__thumb {
   border-radius: var(--radius);
+  border: 1px solid var(--border); /* tepi tetap terlihat saat thumbnail navy di atas latar navy */
   box-shadow: var(--shadow-sm);
 }
 
@@ -20,7 +21,7 @@
   margin-top: var(--space-2);
   font-family: var(--font-sub);
   font-size: var(--fs-small);
-  color: var(--slate);
+  color: var(--text);
 }
 
 @media (min-width: 768px) {
@@ -28,4 +29,10 @@
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-5);
   }
+}
+
+.galeri__lainnya {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-6);
 }

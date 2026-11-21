@@ -31,6 +31,28 @@
   letter-spacing: 0.08em;
 }
 
+.logo__name,
+.logo__small {
+  white-space: nowrap;
+}
+
+/* Layar sempit: header memuat logo + tombol menu + tombol tema. */
+@media (max-width: 400px) {
+  .logo {
+    gap: var(--space-2);
+  }
+  .logo__mark {
+    width: 1.875rem;
+    height: 1.875rem;
+  }
+  .logo__name {
+    font-size: 1.05rem;
+  }
+  .logo__small {
+    font-size: 0.58rem;
+  }
+}
+
 .logo__demo {
   align-self: flex-start;
   margin-top: 0.15rem;

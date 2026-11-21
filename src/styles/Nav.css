@@ -1,0 +1,200 @@
+/* ── Menu utama bertingkat ──────────────────────────────────────────────
+   Ponsel (< 1100px): akordeon di panel navy, teks putih.
+   Desktop (≥ 1100px): dropdown berlatar --surface (ikut tema), sub-submenu ke samping. */
+
+.nav__list,
+.nav__sub {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav__item {
+  position: relative;
+}
+.nav__sub {
+  display: none;
+}
+.nav__item.is-open > .nav__sub {
+  display: block;
+}
+
+/* Item level teratas (tautan atau tombol pembuka submenu) */
+.nav__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3) 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--white);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+.nav__link:hover {
+  color: var(--white);
+}
+
+/* Animasi 5 — hover menu: garis bawah tumbuh dari tengah (scaleX).
+   Tetap tampil (tanpa gerak) untuk halaman/bagian yang sedang aktif. */
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.35rem;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+}
+.nav__link:hover::after,
+.nav__link:focus-visible::after,
+.nav__link[aria-current='page']::after,
+.nav__link.is-aktif::after {
+  transform: scaleX(1);
+}
+
+.nav__panah {
+  flex-shrink: 0;
+}
+.nav__tombol[aria-expanded='true'] > .nav__panah {
+  transform: rotate(180deg);
+}
+
+/* Item di dalam submenu */
+.nav__sublink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: var(--white);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+.nav__sublink:hover {
+  color: var(--white);
+  background: var(--white-a15);
+}
+.nav__sublink[aria-current='page'] {
+  background: var(--white-a15);
+}
+.nav__ringkasan {
+  font-weight: 400;
+}
+
+/* Ponsel: submenu menjorok dengan garis di kiri */
+.nav__sub {
+  margin: var(--space-1) 0 var(--space-3) var(--space-2);
+  padding-left: var(--space-3);
+  border-left: 2px solid var(--white-a15);
+}
+
+@media (min-width: 1100px) {
+  .nav__list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+  }
+  .nav__link {
+    width: auto;
+    padding: var(--space-2) 0;
+  }
+
+  .nav__sub {
+    position: absolute;
+    z-index: 60;
+    top: calc(100% + 0.6rem);
+    left: -1rem;
+    min-width: 16rem;
+    margin: 0;
+    padding: var(--space-2);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+  }
+  /* Jembatan tak terlihat: kursor tidak "jatuh" di celah antara tombol dan submenu. */
+  .nav__sub::before {
+    content: '';
+    position: absolute;
+    top: -0.7rem;
+    left: 0;
+    right: 0;
+    height: 0.7rem;
+  }
+  /* Menu dekat tepi kanan membuka ke kiri agar tidak keluar layar. */
+  .nav__list > .nav__item:nth-last-child(2) > .nav__sub {
+    left: auto;
+    right: -1rem;
+  }
+
+  /* Sub-submenu: keluar ke samping kanan item induknya */
+  .nav__sub--2 {
+    top: calc(-1 * var(--space-2) - 1px);
+    left: calc(100% + var(--space-2));
+  }
+  .nav__sub--2::before {
+    top: 0;
+    bottom: 0;
+    left: calc(-1 * var(--space-3));
+    right: auto;
+    width: var(--space-3);
+    height: auto;
+  }
+  .nav__sub .nav__tombol > .nav__panah {
+    transform: rotate(-90deg);
+  }
+
+  .nav__sublink {
+    color: var(--heading);
+  }
+  .nav__sublink:hover,
+  .nav__sublink[aria-current='page'],
+  .nav__tombol.nav__sublink[aria-expanded='true'] {
+    color: var(--heading);
+    background: var(--surface-alt);
+  }
+  .nav__ringkasan {
+    color: var(--accent);
+  }
+}
+
+/* Animasi 5 (perluasan) — dropdown muncul dengan pudar + turun 8px. */
+@media (prefers-reduced-motion: no-preference) {
+  .nav__link::after {
+    transition: transform 0.3s var(--ease-out);
+  }
+  @media (min-width: 1100px) {
+    .nav__item.is-open > .nav__sub {
+      animation: menu-turun 0.2s var(--ease-out);
+    }
+  }
+}
+
+@keyframes menu-turun {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

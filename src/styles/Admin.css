@@ -33,7 +33,7 @@
 .admin-main {
   min-height: calc(100vh - var(--header-h));
   padding-block: var(--space-7);
-  background: var(--white-soft);
+  background: var(--bg-alt);
 }
 
 .admin-kartu {
@@ -41,8 +41,8 @@
   flex-direction: column;
   gap: var(--space-4);
   padding: clamp(1.25rem, 0.8rem + 2vw, 2rem);
-  background: var(--white);
-  border: 1px solid var(--slate-line);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
 }
@@ -90,7 +90,7 @@
 .tabs {
   display: flex;
   gap: var(--space-2);
-  border-bottom: 1px solid var(--slate-line);
+  border-bottom: 1px solid var(--border);
 }
 .tabs__tab {
   min-height: 2.875rem;
@@ -101,15 +101,15 @@
   background: none;
   font-family: var(--font-sub);
   font-weight: 700;
-  color: var(--slate);
+  color: var(--text);
   cursor: pointer;
 }
 .tabs__tab:hover {
-  color: var(--navy-2);
+  color: var(--accent);
 }
 .tabs__tab[aria-selected='true'] {
-  color: var(--navy);
-  border-bottom-color: var(--navy);
+  color: var(--heading);
+  border-bottom-color: var(--heading);
 }
 .tabs__panel {
   padding-top: var(--space-6);
@@ -137,7 +137,7 @@
   font-family: var(--font-sub);
   font-weight: 700;
   font-size: var(--fs-small);
-  color: var(--navy);
+  color: var(--heading);
 }
 .admin-filter {
   width: auto;
@@ -154,7 +154,7 @@
   margin: 0 0 var(--space-3);
   font-family: var(--font-sub);
   font-size: var(--fs-small);
-  color: var(--slate);
+  color: var(--text);
 }
 
 /* ── Tabel ─────────────────────────────────────────────────────────── */
@@ -163,8 +163,8 @@
      tabel kalau tidak akan "lolos" dari wadah gulir dan melebarkan seluruh halaman. */
   position: relative;
   overflow-x: auto;
-  background: var(--white);
-  border: 1px solid var(--slate-line);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
 }
@@ -179,27 +179,27 @@
   padding: var(--space-3) var(--space-4);
   text-align: left;
   vertical-align: top;
-  border-bottom: 1px solid var(--slate-line);
+  border-bottom: 1px solid var(--border);
 }
 .tabel th {
   font-family: var(--font-sub);
   font-weight: 700;
   font-size: var(--fs-small);
-  color: var(--navy);
-  background: var(--white-soft);
+  color: var(--heading);
+  background: var(--surface-alt);
   white-space: nowrap;
 }
 .tabel tbody tr:last-child td {
   border-bottom: 0;
 }
 .tabel strong {
-  color: var(--navy);
+  color: var(--heading);
   font-weight: 600;
 }
 .tabel__sub {
   display: block;
   font-size: var(--fs-small);
-  color: var(--slate);
+  color: var(--text);
 }
 .tabel__nowrap {
   white-space: nowrap;
@@ -214,10 +214,12 @@
 }
 .tabel__status--diterima {
   border-color: var(--success);
+  background: var(--status-bg);
   color: var(--success);
 }
 .tabel__status--ditolak {
   border-color: var(--error);
+  background: var(--status-bg);
   color: var(--error);
 }
 .tabel__aksi {
@@ -236,12 +238,12 @@
   white-space: nowrap;
 }
 .lencana--terbit {
-  background: var(--navy);
-  color: var(--white);
+  background: var(--primary);
+  color: var(--on-primary);
 }
 .lencana--draf {
-  border: 1px dashed var(--slate-2);
-  color: var(--slate);
+  border: 1px dashed var(--border-strong);
+  color: var(--text);
 }
 
 /* ── Formulir berita ───────────────────────────────────────────────── */
@@ -265,13 +267,13 @@
   margin-top: var(--space-5);
   font-family: var(--font-sub);
   font-weight: 700;
-  color: var(--navy);
+  color: var(--heading);
   cursor: pointer;
 }
 .berita-form__cek input {
   width: 1.25rem;
   height: 1.25rem;
-  accent-color: var(--navy);
+  accent-color: var(--primary);
 }
 .berita-form__aksi {
   display: flex;
@@ -295,10 +297,11 @@
   border: 0;
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
-  color: var(--slate);
+  background: var(--surface);
+  color: var(--text);
 }
 .dialog::backdrop {
-  background: var(--navy-a40);
+  background: var(--backdrop);
 }
 .dialog h2 {
   font-size: var(--fs-h3);
@@ -310,4 +313,12 @@
   justify-content: flex-end;
   gap: var(--space-3);
   margin-top: var(--space-5);
+}
+
+/* Baris struktur: menjorok sesuai kedalaman di bagan */
+.struktur-baris {
+  display: flex;
+  gap: var(--space-2);
+  padding-left: calc(var(--dalam, 0) * 1.5rem);
+  color: var(--text);
 }

@@ -2,7 +2,7 @@
   margin: 0 0 var(--space-4);
   font-family: var(--font-sub);
   font-size: var(--fs-small);
-  color: var(--slate);
+  color: var(--text);
 }
 
 .berita__grid {

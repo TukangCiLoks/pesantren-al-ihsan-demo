@@ -4,12 +4,14 @@ import Button from '../components/Button.jsx';
 import StatusMessage from '../components/StatusMessage.jsx';
 import TabPendaftar from '../components/admin/TabPendaftar.jsx';
 import TabBerita from '../components/admin/TabBerita.jsx';
+import TabStruktur from '../components/admin/TabStruktur.jsx';
 import { keluar } from '../lib/admin.js';
 import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
 
 const TABS = [
   { id: 'pendaftar', label: 'Pendaftar' },
   { id: 'berita', label: 'Berita' },
+  { id: 'struktur', label: 'Struktur' },
 ];
 
 export default function AdminDashboard() {
@@ -79,7 +81,9 @@ export default function AdminDashboard() {
       </div>
 
       <div className="tabs__panel" role="tabpanel" id={`panel-${aktif}`} aria-labelledby={`tab-${aktif}`}>
-        {aktif === 'pendaftar' ? <TabPendaftar /> : <TabBerita />}
+        {aktif === 'pendaftar' && <TabPendaftar />}
+        {aktif === 'berita' && <TabBerita />}
+        {aktif === 'struktur' && <TabStruktur />}
       </div>
     </div>
   );

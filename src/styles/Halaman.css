@@ -1,0 +1,241 @@
+/* Gaya bersama halaman dalam (Profil, Pendidikan, dst.). Semua warna lewat token semantik. */
+
+.bagian {
+  padding-block: var(--space-7);
+}
+.bagian + .bagian.section--white,
+.bagian + .bagian.section--soft {
+  border-top: 1px solid var(--border);
+}
+.bagian__judul {
+  font-size: var(--fs-h2);
+  margin-bottom: var(--space-5);
+}
+
+/* Teks panjang: lebar baris nyaman dibaca */
+.prosa {
+  max-width: 46rem;
+}
+.prosa p {
+  margin-bottom: var(--space-4);
+}
+.prosa--lead {
+  font-size: var(--fs-lead);
+}
+
+/* Dua kolom: teks + panel (ilustrasi / daftar) */
+.dua-kolom {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .dua-kolom {
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-7);
+  }
+}
+
+/* Daftar dengan ikon centang */
+.daftar-cek {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+.daftar-cek li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  color: var(--heading);
+  font-family: var(--font-sub);
+  font-weight: 700;
+}
+.daftar-cek svg {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+/* Kotak panel di dalam halaman */
+.panel {
+  padding: var(--space-6) var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.panel__judul {
+  font-family: var(--font-sub);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin: 0 0 var(--space-4);
+}
+
+/* Grid kartu serbaguna */
+.grid-kartu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-5);
+}
+@media (min-width: 640px) {
+  .grid-kartu {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .grid-kartu--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid-kartu--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Angka sorotan (chip) */
+.sorotan {
+  list-style: none;
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.sorotan li {
+  display: flex;
+  flex-direction: column;
+  min-width: 9rem;
+  padding: var(--space-3) var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--heading);
+  border-radius: 8px;
+}
+.sorotan__nilai {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: var(--heading);
+}
+.sorotan__label {
+  font-family: var(--font-sub);
+  font-size: var(--fs-small);
+  color: var(--text);
+}
+
+/* Tabel sederhana (jadwal, kalender). Wadah boleh digeser bila perlu. */
+.tabel-gulir {
+  position: relative; /* lihat catatan .visually-hidden di CLAUDE.md */
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.tabel-isi {
+  width: 100%;
+  border-collapse: collapse;
+}
+.tabel-isi caption {
+  padding: var(--space-4) var(--space-4) 0;
+  text-align: left;
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--heading);
+}
+.tabel-isi th,
+.tabel-isi td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+}
+.tabel-isi thead th {
+  font-family: var(--font-sub);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--heading);
+  background: var(--surface-alt);
+}
+.tabel-isi tbody tr:last-child > * {
+  border-bottom: 0;
+}
+.tabel-isi tbody th {
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--heading);
+  white-space: nowrap;
+}
+
+/* Label kecil bergaris (jenis kegiatan, kategori) */
+.label-garis {
+  display: inline-block;
+  padding: 0.1rem 0.6rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  color: var(--heading);
+  white-space: nowrap;
+}
+
+/* Panel ilustrasi fasilitas: selalu navy (kedua tema), dengan pola samar */
+.ilustrasi-fasilitas {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+  box-shadow: var(--shadow-sm);
+}
+.ilustrasi-fasilitas__pola {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.panel--jarak {
+  margin-top: var(--space-5);
+}
+
+/* Panel yang seluruhnya tautan (mis. "Fasilitas lainnya") */
+.tautan-panel {
+  display: block;
+  height: 100%;
+  text-decoration: none;
+}
+.tautan-panel__judul {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-family: var(--font-sub);
+  font-weight: 700;
+  color: var(--heading);
+}
+.tautan-panel__teks {
+  display: block;
+  color: var(--text);
+}
+.tautan-panel:hover .tautan-panel__judul {
+  text-decoration: underline;
+}
+
+/* Tanggal kalender boleh terlipat (rentang tanggal panjang di layar sempit). */
+.kalender__tanggal {
+  min-width: 8rem;
+  white-space: normal !important;
+}
+
+.struktur__catatan {
+  margin: var(--space-4) 0 0;
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}

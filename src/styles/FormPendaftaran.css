@@ -4,8 +4,8 @@
   gap: var(--space-5);
   max-width: 52rem;
   padding: clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
-  background: var(--white);
-  border: 1px solid var(--slate-line);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
 }
@@ -13,17 +13,17 @@
 .form-daftar__demo {
   margin: 0;
   padding: var(--space-3) var(--space-4);
-  border-left: 4px solid var(--navy-2);
+  border-left: 4px solid var(--accent);
   border-radius: 0 8px 8px 0;
-  background: var(--white-soft);
+  background: var(--surface-alt);
   font-family: var(--font-sub);
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .form-daftar__wajib {
   margin: 0;
   font-size: var(--fs-small);
-  color: var(--slate);
+  color: var(--text);
 }
 
 .form-daftar__grup {
@@ -38,7 +38,7 @@
   font-family: var(--font-heading);
   font-weight: 600;
   font-size: var(--fs-h3);
-  color: var(--navy);
+  color: var(--heading);
 }
 
 .form-daftar__grid {
@@ -72,21 +72,21 @@
   flex-direction: column;
   gap: var(--space-1);
   padding: var(--space-4) var(--space-5);
-  border: 1px dashed var(--slate-2);
+  border: 1px dashed var(--border-strong);
   border-radius: 8px;
-  background: var(--white-soft);
+  background: var(--surface-alt);
   align-self: flex-start;
 }
 .form-daftar__nomor-label {
   font-family: var(--font-sub);
   font-size: var(--fs-small);
-  color: var(--slate);
+  color: var(--text);
 }
 .form-daftar__nomor strong {
   font-family: var(--font-sub);
   font-size: clamp(1.4rem, 1.2rem + 1vw, 1.9rem);
   letter-spacing: 0.04em;
-  color: var(--navy);
+  color: var(--heading);
 }
 
 @media (min-width: 768px) {

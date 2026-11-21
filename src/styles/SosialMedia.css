@@ -1,0 +1,57 @@
+/* Media sosial di atas latar navy (bar atas & footer) — warna tetap putih di kedua mode. */
+.sosmed {
+  --ikon-sosmed-isi: var(--navy); /* segitiga "play" YouTube */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.sosmed__tautan {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--white);
+  text-decoration: none;
+}
+.sosmed__tautan:hover {
+  color: var(--white);
+}
+
+/* Ikon saja: tombol bulat kecil, target sentuh 36px (bar atas). */
+.sosmed--ikon .sosmed__tautan {
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+}
+.sosmed--ikon .sosmed__tautan:hover {
+  background: var(--white-a15);
+}
+
+/* Ikon + nama: daftar vertikal (footer). */
+.sosmed--label {
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.sosmed--label .sosmed__tautan {
+  font-family: var(--font-sub);
+  font-weight: 700;
+}
+.sosmed--label .sosmed__tautan:hover span {
+  text-decoration: underline;
+}
+
+/* Animasi 5 — hover: ikon terangkat sedikit. */
+@media (hover: hover) {
+  .sosmed__tautan:hover svg {
+    transform: translateY(-2px);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sosmed__tautan svg {
+    transition: transform 0.25s var(--ease-out);
+  }
+}
