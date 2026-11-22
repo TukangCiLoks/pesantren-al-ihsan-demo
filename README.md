@@ -1,5 +1,9 @@
 # Pesantren Al-Ihsan (Demo)
 
+[![Beranda Pesantren Al-Ihsan (Demo): hero navy dengan basmalah, judul "Menumbuhkan generasi berilmu, beradab, dan berakhlak mulia", serta ilustrasi masjid dan bulan sabit](docs/beranda.webp)](https://pesantren-al-ihsan-demo.vercel.app)
+
+**Demo langsung:** https://pesantren-al-ihsan-demo.vercel.app
+
 Situs portofolio untuk pesantren **fiktif**. Semua nama, alamat, dan data adalah contoh;
 tidak ada nama, logo, teks, atau foto dari pesantren nyata.
 
