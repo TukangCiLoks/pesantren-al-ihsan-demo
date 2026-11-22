@@ -157,6 +157,13 @@ rollback;
    (nilai sama dengan `.env.local`), lalu Deploy.
 4. [`vercel.json`](vercel.json) me-rewrite semua rute ke `index.html`, jadi membuka
    langsung `/berita/1` atau `/admin` tidak menghasilkan 404.
+5. `vercel.json` juga memasang header keamanan: CSP (skrip hanya dari situs sendiri +
+   hash skrip tema inline; font hanya Google Fonts; koneksi hanya ke `*.supabase.co`),
+   HSTS, `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`,
+   dan cache 1 tahun untuk `/assets/*`. `npm run build` gagal (langkah `postbuild`,
+   [`scripts/cek-csp.mjs`](scripts/cek-csp.mjs)) bila skrip inline di `index.html` berubah
+   tanpa memperbarui hash-nya. Uji lokal dengan header yang sama:
+   `npm run build && node scripts/serve-dist.mjs` → http://localhost:5190.
 
 Variabel `VITE_*` ditanam ke JavaScript saat build: setelah mengubahnya di Vercel, lakukan
 *Redeploy*. Kunci anon memang publik; keamanan bergantung pada RLS, bukan kerahasiaan kunci.
@@ -165,11 +172,16 @@ Variabel `VITE_*` ditanam ke JavaScript saat build: setelah mengubahnya di Verce
 
 - **Kontras** (dihitung, lihat komentar di `tokens.css`): semua pasangan ≥ 4,5:1;
   `--slate-2` hanya untuk teks ≥ 14px. Tepi isian formulir memakai `--slate-2` (≥ 3:1).
-- **Font** (diukur di beranda, Chrome): ±258 KB woff2; Amiri (subset Arab) ±125 KB
-  di antaranya. Cinzel dimuat dengan `&text=` (±2 KB).
-- **Bundle:** kode panel admin terpisah (±4 KB gzip) dan tidak diunduh pengunjung biasa.
-- **Lighthouse:** jalankan di Chrome DevTools › Lighthouse pada hasil `npm run preview`
-  atau URL Vercel. Belum diukur di proyek ini.
+- **Font** (Lighthouse, beranda): ±143 KB woff2, dimuat tanpa memblokir render.
+  Amiri (bobot 400, `&text=` berisi 29 huruf Arab yang dipakai) ±36 KB; Cinzel `&text=` ±2 KB.
+  Bila teks Arab di situs ditambah, perbarui `&text=` Amiri di `index.html`.
+- **Bundle:** bundel utama ±75 KB gzip. supabase-js (±60 KB gzip) dimuat lazy lewat
+  `ambilKlien()` hanya saat data dibutuhkan; kode panel admin terpisah.
+- **Lighthouse** (mobile, `dist` lokal dengan header Vercel, tanpa kompresi):
+  beranda 78–83 / 100 / 100 / 100, `/informasi/berita` 80 / 100 / 100 / 100 (CLS 0,03).
+  Sebelumnya di situs live: 71 dan 39 (CLS 0,42), SEO 91 karena `robots.txt` tidak valid.
+- **Error boundary:** galat di satu halaman (atau chunk gagal diunduh setelah deploy baru)
+  menampilkan pesan + tombol *Muat ulang*; header dan footer tetap tampil.
 - **Reduced motion:** DevTools › Rendering › *Emulate CSS prefers-reduced-motion: reduce*.
 
 ## Keterbatasan (demo)

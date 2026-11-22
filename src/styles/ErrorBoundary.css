@@ -1,0 +1,14 @@
+.galat {
+  min-height: 60vh;
+  padding-block: var(--space-8);
+  max-width: 46rem;
+}
+.galat__judul {
+  font-size: var(--fs-h2);
+}
+.galat__aksi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}

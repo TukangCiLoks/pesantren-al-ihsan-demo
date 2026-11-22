@@ -1,4 +1,4 @@
-import { supabase, isSupabaseConfigured } from './supabase.js';
+import { ambilKlien, isSupabaseConfigured } from './supabase.js';
 import { BERITA_CONTOH } from '../data/beritaContoh.js';
 import { pesanError } from './pesanError.js';
 
@@ -54,7 +54,7 @@ export async function ambilDaftar({ jenis, kategori = '', cari = '', halaman = 1
     return { data: semua.slice(dari, dari + PER_HALAMAN), total: semua.length };
   }
 
-  let q = supabase
+  let q = (await ambilKlien())
     .from('berita')
     .select(KOLOM_RINGKAS, { count: 'exact' })
     .eq('dipublikasi', true)
@@ -75,7 +75,7 @@ export async function ambilKategori(jenis) {
   if (!isSupabaseConfigured) {
     daftar = BERITA_CONTOH.filter((b) => b.jenis === jenis).map((b) => b.kategori);
   } else {
-    const { data, error } = await supabase
+    const { data, error } = await (await ambilKlien())
       .from('berita')
       .select('kategori')
       .eq('dipublikasi', true)
@@ -98,7 +98,7 @@ export async function ambilAgenda({ waktu = 'mendatang', batas = 20 } = {}) {
       .slice(0, batas);
   }
 
-  let q = supabase.from('berita').select(KOLOM_RINGKAS).eq('dipublikasi', true).eq('jenis', 'agenda').limit(batas);
+  let q = (await ambilKlien()).from('berita').select(KOLOM_RINGKAS).eq('dipublikasi', true).eq('jenis', 'agenda').limit(batas);
   q = mendatang
     ? q.gte('tanggal_acara', sekarang).order('tanggal_acara', { ascending: true })
     : q.lt('tanggal_acara', sekarang).order('tanggal_acara', { ascending: false });
@@ -118,7 +118,7 @@ export async function ambilBerita(id) {
   if (!isSupabaseConfigured) return BERITA_CONTOH.find((b) => b.id === id) ?? null;
   // id contoh ("contoh-1") atau teks lain bukan angka: jangan kirim ke database.
   if (!/^\d+$/.test(id)) return null;
-  const { data, error } = await supabase
+  const { data, error } = await (await ambilKlien())
     .from('berita')
     .select(KOLOM_LENGKAP)
     .eq('id', id)

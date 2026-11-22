@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import Layout from './components/Layout.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import StatusMessage from './components/StatusMessage.jsx';
+import ErrorBoundary from './components/ErrorBoundary.jsx';
 import Beranda from './pages/Beranda.jsx';
 import NotFound from './pages/NotFound.jsx';
 import HalamanIndeks from './pages/HalamanIndeks.jsx';
@@ -98,9 +99,11 @@ export default function App() {
       <Route
         path="admin"
         element={
-          <Suspense fallback={<StatusMessage>Memuat panel admin…</StatusMessage>}>
-            <AdminLayout />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<StatusMessage>Memuat panel admin…</StatusMessage>}>
+              <AdminLayout />
+            </Suspense>
+          </ErrorBoundary>
         }
       >
         <Route path="login" element={<AdminLogin />} />

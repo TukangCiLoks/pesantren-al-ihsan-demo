@@ -6,6 +6,7 @@
   text-decoration: none;
   font-family: var(--font-logo);
   font-weight: 600;
+  text-transform: uppercase; /* subset Cinzel (&text=) hanya berisi huruf kapital */
 }
 .logo:hover {
   color: var(--white);

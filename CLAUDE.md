@@ -15,7 +15,8 @@ Dependensi baru harus ditanyakan dulu.
 
 ## Struktur
 
-- `src/lib/supabase.js` — klien tunggal (null bila env kosong); `berita.js`, `pendaftaran.js`,
+- `src/lib/supabase.js` — `ambilKlien()`: Promise klien tunggal, supabase-js dimuat lazy
+  (null bila env kosong; jangan impor `@supabase/supabase-js` statis di tempat lain); `berita.js`, `pendaftaran.js`,
   `admin.js` — akses data; `pesanError.js` — pesan error bersama
 - `src/hooks/` — `useReveal`, `useCountUp`, `useReducedMotion`, `useAuth`, `useDocumentTitle`
 - Area admin (`AdminLayout`, `AdminLogin`, `AdminDashboard`) dimuat lewat `React.lazy`;
@@ -58,6 +59,14 @@ Dependensi baru harus ditanyakan dulu.
   `/ppdb/formulir`; beranda hanya alur + `AjakanDaftar`. Semua 26 halaman daun menu sudah berisi.
 - **Zona waktu:** semua tanggal/jam ditampilkan dalam WIB (`utils/format.js`, `timeZone: 'Asia/Jakarta'`);
   isian `datetime-local` admin dianggap jam WIB (`dariInputWaktu`/`keInputWaktu`).
+- `ErrorBoundary` membungkus `<Outlet>` di `Layout` (di-reset per `pathname`) dan area admin.
+  `#konten` minimal 100vh agar footer tidak melompat selama memuat (CLS).
+- **Header keamanan** di `vercel.json` (CSP, HSTS, dll.). Skrip inline di `index.html` diizinkan
+  lewat hash; `postbuild` (`scripts/cek-csp.mjs`) menggagalkan build bila hash tidak cocok.
+  Jangan menambah atribut event inline (`onload=` dll.) atau `<style>` inline. Domain eksternal
+  baru (gambar, API) harus ditambahkan ke CSP. Uji: konfigurasi `dist-csp` (port 5190).
+- Font Google dimuat non-blocking (`media="print"` + `data-font`, diaktifkan di `main.jsx`).
+  Amiri & Cinzel memakai subset `&text=`: teks Arab/logo baru → perbarui `&text=` di `index.html`.
 - Dev server tanpa Supabase (data contoh): konfigurasi `vite-contoh` di `.claude/launch.json` (port 5181).
 - Media sosial: tautan sengaja ke beranda platform (akun fiktif); ganti di `SOSMED` bila ada akun resmi.
 - `sql/schema.sql` — tabel, RLS, RPC, seed

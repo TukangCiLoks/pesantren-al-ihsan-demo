@@ -1,4 +1,4 @@
-import { supabase, isSupabaseConfigured } from './supabase.js';
+import { ambilKlien, isSupabaseConfigured } from './supabase.js';
 import { normalisasiHp } from '../utils/validasi.js';
 import { PESAN_JARINGAN, pesanError } from './pesanError.js';
 
@@ -27,7 +27,7 @@ export async function kirimPendaftaran(nilai) {
 
   let hasil;
   try {
-    hasil = await supabase.rpc('daftar_santri', {
+    hasil = await (await ambilKlien()).rpc('daftar_santri', {
       p_nama: nilai.nama.trim(),
       p_tempat_lahir: nilai.tempat_lahir.trim(),
       p_tgl_lahir: nilai.tgl_lahir,

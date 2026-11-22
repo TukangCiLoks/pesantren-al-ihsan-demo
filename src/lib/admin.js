@@ -1,14 +1,15 @@
 // Akses data panel admin. Semua izin ditegakkan oleh RLS di server;
 // fungsi-fungsi ini hanya menyusun query dan menerjemahkan error.
-import { supabase } from './supabase.js';
+import { ambilKlien } from './supabase.js';
 import { PESAN_JARINGAN, pesanError } from './pesanError.js';
 
 export const STATUS_PENDAFTAR = ['baru', 'diverifikasi', 'diterima', 'ditolak'];
 
-async function jalankan(query) {
+/** `susun(sb)` membangun query dari klien; klien dimuat lazy (lihat supabase.js). */
+async function jalankan(susun) {
   let hasil;
   try {
-    hasil = await query;
+    hasil = await susun(await ambilKlien());
   } catch {
     throw new Error(PESAN_JARINGAN);
   }
@@ -26,52 +27,63 @@ function satuBaris(data) {
 }
 
 // ── Autentikasi ─────────────────────────────────────────────────────────
-export const masuk = (email, password) => supabase.auth.signInWithPassword({ email, password });
-export const keluar = () => supabase.auth.signOut();
+export const masuk = async (email, password) =>
+  (await ambilKlien()).auth.signInWithPassword({ email, password });
+/** Selalu mengembalikan { error }, juga bila modul klien gagal diunduh. */
+export async function keluar() {
+  try {
+    return await (await ambilKlien()).auth.signOut();
+  } catch (error) {
+    return { error };
+  }
+}
 
 // ── Pendaftar ───────────────────────────────────────────────────────────
 export function ambilPendaftar(status) {
-  let q = supabase.from('pendaftar').select('*').order('created_at', { ascending: false });
-  if (status) q = q.eq('status', status);
-  return jalankan(q);
+  return jalankan((sb) => {
+    const q = sb.from('pendaftar').select('*').order('created_at', { ascending: false });
+    return status ? q.eq('status', status) : q;
+  });
 }
 
 export const ubahStatusPendaftar = async (id, status) =>
-  satuBaris(await jalankan(supabase.from('pendaftar').update({ status }).eq('id', id).select()));
+  satuBaris(await jalankan((sb) => sb.from('pendaftar').update({ status }).eq('id', id).select()));
 
 export const hapusPendaftar = async (id) =>
-  satuBaris(await jalankan(supabase.from('pendaftar').delete().eq('id', id).select('id')));
+  satuBaris(await jalankan((sb) => sb.from('pendaftar').delete().eq('id', id).select('id')));
 
 // ── Berita ──────────────────────────────────────────────────────────────
 export const ambilSemuaBerita = () =>
-  jalankan(supabase.from('berita').select('*').order('created_at', { ascending: false }));
+  jalankan((sb) => sb.from('berita').select('*').order('created_at', { ascending: false }));
 
 /** Tambah (tanpa id) atau ubah (dengan id) berita. */
 export async function simpanBerita({ id, ...data }) {
-  const q = id
-    ? supabase.from('berita').update(data).eq('id', id).select()
-    : supabase.from('berita').insert(data).select();
-  return satuBaris(await jalankan(q));
+  return satuBaris(
+    await jalankan((sb) =>
+      id ? sb.from('berita').update(data).eq('id', id).select() : sb.from('berita').insert(data).select(),
+    ),
+  );
 }
 
 export const aturPublikasi = async (id, dipublikasi) =>
-  satuBaris(await jalankan(supabase.from('berita').update({ dipublikasi }).eq('id', id).select()));
+  satuBaris(await jalankan((sb) => sb.from('berita').update({ dipublikasi }).eq('id', id).select()));
 
 export const hapusBerita = async (id) =>
-  satuBaris(await jalankan(supabase.from('berita').delete().eq('id', id).select('id')));
+  satuBaris(await jalankan((sb) => sb.from('berita').delete().eq('id', id).select('id')));
 
 // ── Struktur organisasi ─────────────────────────────────────────────────
 export const ambilSemuaPengurus = () =>
-  jalankan(supabase.from('pengurus').select('*').order('unit').order('urutan'));
+  jalankan((sb) => sb.from('pengurus').select('*').order('unit').order('urutan'));
 
 /** Tambah (tanpa id) atau ubah (dengan id) pengurus. Bentuk pohon dijaga trigger di server. */
 export async function simpanPengurus({ id, ...data }) {
-  const q = id
-    ? supabase.from('pengurus').update(data).eq('id', id).select()
-    : supabase.from('pengurus').insert(data).select();
-  return satuBaris(await jalankan(q));
+  return satuBaris(
+    await jalankan((sb) =>
+      id ? sb.from('pengurus').update(data).eq('id', id).select() : sb.from('pengurus').insert(data).select(),
+    ),
+  );
 }
 
 /** Bawahan dari pengurus yang dihapus otomatis menjadi akar (on delete set null). */
 export const hapusPengurus = async (id) =>
-  satuBaris(await jalankan(supabase.from('pengurus').delete().eq('id', id).select('id')));
+  satuBaris(await jalankan((sb) => sb.from('pengurus').delete().eq('id', id).select('id')));

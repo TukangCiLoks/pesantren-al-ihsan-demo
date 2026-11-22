@@ -4,18 +4,38 @@
     {
       "name": "vite-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--", "--port", "5173", "--strictPort"],
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--",
+        "--port",
+        "5173",
+        "--strictPort"
+      ],
       "port": 5173
     },
     {
       "name": "vite-contoh",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["vite", "--port", "5181", "--strictPort"],
+      "runtimeArgs": [
+        "vite",
+        "--port",
+        "5181",
+        "--strictPort"
+      ],
       "env": {
         "VITE_SUPABASE_URL": "",
         "VITE_SUPABASE_ANON_KEY": ""
       },
       "port": 5181
+    },
+    {
+      "name": "dist-csp",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "scripts/serve-dist.mjs"
+      ],
+      "port": 5190
     }
   ]
 }

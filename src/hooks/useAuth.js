@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { supabase, isSupabaseConfigured } from '../lib/supabase.js';
+import { ambilKlien, isSupabaseConfigured } from '../lib/supabase.js';
 
 /**
  * Sesi Supabase Auth + status admin.
@@ -21,8 +21,9 @@ export function useAuth() {
   useEffect(() => {
     if (!isSupabaseConfigured) return undefined;
     let aktif = true;
+    let subscription = null;
 
-    async function terapkan(session) {
+    async function terapkan(supabase, session) {
       if (!session) {
         if (aktif) setState({ session: null, isAdmin: false, loading: false, error: false });
         return;
@@ -32,17 +33,25 @@ export function useAuth() {
       if (aktif) setState({ session, isAdmin: data === true, loading: false, error: Boolean(error) });
     }
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      // Panggilan Supabase lain tidak boleh di-await langsung di dalam callback ini
-      // (dapat mengunci klien); tunda ke tick berikutnya sesuai anjuran Supabase.
-      setTimeout(() => terapkan(session), 0);
-    });
+    ambilKlien()
+      .then((supabase) => {
+        if (!aktif) return;
+        ({
+          data: { subscription },
+        } = supabase.auth.onAuthStateChange((_event, session) => {
+          // Panggilan Supabase lain tidak boleh di-await langsung di dalam callback ini
+          // (dapat mengunci klien); tunda ke tick berikutnya sesuai anjuran Supabase.
+          setTimeout(() => terapkan(supabase, session), 0);
+        }));
+      })
+      .catch(() => {
+        // Modul supabase-js gagal diunduh (jaringan putus / deploy baru).
+        if (aktif) setState({ session: null, isAdmin: false, loading: false, error: true });
+      });
 
     return () => {
       aktif = false;
-      subscription.unsubscribe();
+      subscription?.unsubscribe();
     };
   }, []);
 

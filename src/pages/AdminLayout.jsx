@@ -4,6 +4,7 @@ import SkipLink from '../components/SkipLink.jsx';
 import Logo from '../components/Logo.jsx';
 import StatusMessage from '../components/StatusMessage.jsx';
 import ThemeToggle from '../components/ThemeToggle.jsx';
+import ErrorBoundary from '../components/ErrorBoundary.jsx';
 import '../styles/Admin.css';
 
 /** Kerangka area admin: header ringkas, tanpa menu publik. */
@@ -32,9 +33,11 @@ export default function AdminLayout() {
       </header>
       <main id="konten" tabIndex={-1} className="admin-main">
         <div className="container">
-          <Suspense fallback={<StatusMessage>Memuat halaman…</StatusMessage>}>
-            <Outlet />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<StatusMessage>Memuat halaman…</StatusMessage>}>
+              <Outlet />
+            </Suspense>
+          </ErrorBoundary>
         </div>
       </main>
     </>

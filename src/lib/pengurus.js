@@ -1,4 +1,4 @@
-import { supabase, isSupabaseConfigured } from './supabase.js';
+import { ambilKlien, isSupabaseConfigured } from './supabase.js';
 import { PENGURUS_CONTOH } from '../data/pengurusContoh.js';
 import { pesanError } from './pesanError.js';
 
@@ -15,7 +15,7 @@ export const UNIT = {
  */
 export async function ambilPengurus(unit) {
   if (!isSupabaseConfigured) return PENGURUS_CONTOH.filter((p) => p.unit === unit);
-  const { data, error } = await supabase
+  const { data, error } = await (await ambilKlien())
     .from('pengurus')
     .select('id, nama, jabatan, unit, induk_id, urutan')
     .eq('unit', unit)

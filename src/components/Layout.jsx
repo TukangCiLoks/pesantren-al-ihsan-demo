@@ -4,13 +4,26 @@ import SkipLink from './SkipLink.jsx';
 import TopBar from './TopBar.jsx';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
+import PageHeader from './PageHeader.jsx';
 import StatusMessage from './StatusMessage.jsx';
+import ErrorBoundary from './ErrorBoundary.jsx';
+import { cariHalaman } from '../utils/menu.js';
 
+/**
+ * Tampilan selama chunk halaman dimuat. Pita judul langsung tampil (judul diambil dari
+ * menu) dan area isi diberi tinggi minimal satu layar, sehingga footer tidak sempat
+ * muncul lalu terdorong ke bawah (sebelumnya menyebabkan CLS 0,42 di Lighthouse).
+ */
 function MemuatHalaman() {
+  const { pathname } = useLocation();
+  const item = pathname === '/' ? null : cariHalaman(pathname);
   return (
-    <div className="container" style={{ paddingBlock: 'var(--space-8)', minHeight: '60vh' }}>
-      <StatusMessage>Memuat halaman…</StatusMessage>
-    </div>
+    <>
+      {item && <PageHeader judul={item.label} pengantar={item.ringkas} />}
+      <div className="container memuat-halaman">
+        <StatusMessage>Memuat halaman…</StatusMessage>
+      </div>
+    </>
   );
 }
 
@@ -38,10 +51,13 @@ export default function Layout() {
       <TopBar />
       <Header />
       <main id="konten" ref={mainRef} tabIndex={-1}>
-        {/* Halaman konten dimuat lazy; header & footer tetap tampil selama memuat. */}
-        <Suspense fallback={<MemuatHalaman />}>
-          <Outlet />
-        </Suspense>
+        {/* Error di satu halaman tidak merobohkan header/footer; pindah halaman mereset error. */}
+        <ErrorBoundary key={pathname}>
+          {/* Halaman konten dimuat lazy; header & footer tetap tampil selama memuat. */}
+          <Suspense fallback={<MemuatHalaman />}>
+            <Outlet />
+          </Suspense>
+        </ErrorBoundary>
       </main>
       <Footer />
     </>
